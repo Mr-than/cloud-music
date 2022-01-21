@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/loginpage"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:alpha="0.2"
+        app:lottie_speed="0.3"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:id="@+id/lot_upperMiddle"
+        android:layout_width="match_parent"
+        android:layout_height="406dp"
+        android:layout_gravity="top"
+        app:lottie_fileName="first.json" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/phone_login"
+            android:layout_width="280dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="160dp"
+            android:background="@drawable/phone_button_shape"
+            android:text="手机号登录"
+            android:textColor="#FF0000" />
+
+        <Button
+            android:id="@+id/wechat_login"
+            android:textColor="@color/white"
+            android:background="@drawable/wechat_button_shape"
+            android:layout_width="280dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="微信登录" />
+
+        <LinearLayout
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:clickable="true"
+                android:layout_marginRight="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/qq_ima_selector"
+                android:id="@+id/ima_belowLeft"/>
+            <ImageView
+                android:clickable="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wb_ima_selector"
+                android:id="@+id/ima_belowCenter"/>
+            <ImageView
+                android:clickable="true"
+                android:layout_marginLeft="50dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/wy_ima_selector"
+                android:id="@+id/ima_belowRight"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loginLayout_below"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/box_belowLeft"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:lottie_fileName="checkbox.json" />
+
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/text_belowRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="同意 服务条款、隐私政策、中国移动认证服务协议" />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
