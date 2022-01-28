@@ -4,19 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/dialogfragment_loginphone.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/dialogfragment_phone.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/edit_cursor_color.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/ic_launcher_background.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_shap.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_shape.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_unselector.xml" value="0.23972602739726026" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_loginbutton.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_loginbutton_selector.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_loginbutton_shape.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/qq_ima_unselector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/selector_btn.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/underline.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wb_ima_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wechat_button_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wechat_button_shape.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wechat_button_unselector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wy_ima_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_main.xml" value="0.25729166666666664" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/countryitem.xml" value="0.5405041843541191" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/dialogfragment_loginphone.xml" value="0.20168066580377575" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/fragment_login.xml" value="0.26621847886098404" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/fragment_loginphone.xml" value="0.26621847886098404" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2734375" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/app/src/main/res/layout/activity_main.xml" value="0.25729166666666664" />
       </map>

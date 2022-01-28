@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:id="@+id/login_Phone"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_marginTop="31dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ima_topLeft"
+            android:layout_width="17dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/exit" />
+    <TextView
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:textSize="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_phone"/>
+    </LinearLayout>
+
+   <TextView
+       android:textSize="17dp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginTop="50dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="登录体验更多精彩"
+       android:textColor="@color/black"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="未注册手机号登录后将自动创建账号"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/dialogfragment_login_phone"
+            android:clickable="true"
+            android:id="@+id/but_areaSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/CountryCode_in_home_page"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="+86"
+                android:textColor="@color/black"
+                android:textSize="17dp" />
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/triangle" />
+        </LinearLayout>
+
+        <EditText
+            android:inputType="number"
+            android:textColorHint="#CCCCCC"
+            android:hint="请输入手机号"
+            android:textCursorDrawable="@drawable/edit_cursor_color"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#CCCCCC"/>
+
+    <Button
+        android:id="@+id/next_step"
+        android:textColor="@color/white"
+        android:text="下一步"
+        android:layout_width="315dp"
+        android:layout_height="40dp"
+        android:background="@drawable/phone_loginbutton_shape"
+        android:layout_gravity="center"
+        android:layout_marginTop="43dp"/>
+
+
+
+</LinearLayout>

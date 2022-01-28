@@ -23,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        
         Window window = getWindow();
         View decorView = window.getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { // fitsSystemWindows 过时替代方法--安卓11及以上才有 windowInsetsController

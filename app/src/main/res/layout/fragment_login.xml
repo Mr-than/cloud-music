@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="160dp"
             android:background="@drawable/phone_button_shape"
-            android:text="手机号登录"
+            android:text="@string/login_phone"
             android:textColor="#FF0000" />
 
         <Button

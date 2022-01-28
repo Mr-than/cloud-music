@@ -16,9 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.redrock.R;
+import com.example.redrock.activity.MainActivity;
 import com.example.redrock.base.APP;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
@@ -37,6 +40,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private ImageView leftImage,centerImage,rightImage;
 
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +54,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void init(View view) {
+
+
+
         //底部的checkbox形状的lottie动画
         boxLottie=view.findViewById(R.id.box_belowLeft);
         boxLottie.setOnClickListener(this);
@@ -88,7 +96,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }break;
             case R.id.phone_login:{
                 if(isChecked){
-
+                    replace(new PhoneLoginFragment());
                 }else{
                     Shake();
                 }
@@ -129,6 +137,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         toast.show();
         belowLayout.startAnimation(shake);
     }
+
+    private void replace(Fragment fragment){
+        FragmentManager manager= getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction=manager.beginTransaction();
+        transaction.replace(R.id.fra_global,fragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
+
+
 
 
 
