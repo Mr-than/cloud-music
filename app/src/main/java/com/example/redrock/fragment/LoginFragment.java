@@ -101,34 +101,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     Shake();
                 }
             }break;
-            case R.id.wechat_login:{
-                if(isChecked){
-
-                }else{
-                    Shake();
-                }
-            }break;
-            case R.id.ima_belowLeft:{
-                if(isChecked){
-
-                }else{
-                    Shake();
-                }
-            }break;
-            case R.id.ima_belowCenter:{
-                if(isChecked){
-
-                }else{
-                    Shake();
-                }
-            }break;
-            case R.id.ima_belowRight:{
-                if(isChecked){
-
-                }else{
-                    Shake();
-                }
-            }break;
             default:break;
         }
     }

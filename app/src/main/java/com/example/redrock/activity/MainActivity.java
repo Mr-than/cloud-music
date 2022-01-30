@@ -11,9 +11,15 @@ import com.example.redrock.base.BaseActivity;
 import com.example.redrock.fragment.LoginFragment;
 import com.example.redrock.fragment.PhoneLoginFragment;
 
-//这个活动用来做为应用启动的登录页面
+/**
+ *   description:App启动的启动页面，这个活动装载多个fragment，便于在其他地方调用需要的fragment
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/1/21
+ */
 public class MainActivity extends BaseActivity {
 
+    //这个变量是为了模拟fragment的返回栈效果
    public boolean isBack;
 
 
@@ -61,7 +67,6 @@ public class MainActivity extends BaseActivity {
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         transaction.replace(R.id.fra_global,fragment);
-
         transaction.commit();
     }
 

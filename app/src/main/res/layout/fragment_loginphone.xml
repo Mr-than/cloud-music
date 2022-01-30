@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:clickable="true"
             android:id="@+id/ima_topLeft"
             android:layout_width="17dp"
             android:layout_height="match_parent"
@@ -76,6 +77,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/phone_number_edit"
             android:inputType="number"
             android:textColorHint="#CCCCCC"
             android:hint="请输入手机号"

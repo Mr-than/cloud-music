@@ -14,11 +14,21 @@ import com.example.redrock.viewModel.LoginPhoneViewModel;
 
 import java.util.List;
 
-public class CountryChooseAdapter extends RecyclerView.Adapter<CountryChooseAdapter.CountryChooseAdapterViewHolder>{
+/**
+ *   description:国家码列表的adapter
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/1/28
+ */
 
+public class CountryChooseAdapter extends RecyclerView.Adapter<CountryChooseAdapter.CountryChooseAdapterViewHolder>{
+    //装载国家码列表的list
     private List<CountryAndRegion> list;
+    //装载这个rv的dialogFragment
     private LoginPhoneDialogFragment loginPhoneDialogFragment;
+    //PhoneLoginFragment的ViewModel
     private LoginPhoneViewModel viewModel;
+
 
     public CountryChooseAdapter(List<CountryAndRegion> list, LoginPhoneDialogFragment loginPhoneDialogFragment, LoginPhoneViewModel viewModel){
         this.list=list;
@@ -52,8 +62,6 @@ public class CountryChooseAdapter extends RecyclerView.Adapter<CountryChooseAdap
     public int getItemCount() {
         return list.size();
     }
-
-
 
     protected class CountryChooseAdapterViewHolder extends RecyclerView.ViewHolder {
 
