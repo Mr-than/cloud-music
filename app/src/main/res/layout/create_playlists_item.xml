@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_marginLeft="17dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/test" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="站在宇宙底端，看辽阔星辰"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:textSize="17dp"/>
+
+
+</LinearLayout>
