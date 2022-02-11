@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity
-public class DayRecommendPlaylists {
+public class DayRecommendPlaylistsBean {
     @PrimaryKey(autoGenerate = true)
     public long id=0;
 
@@ -162,7 +162,7 @@ public class DayRecommendPlaylists {
             private boolean defaultAvatar;
             private String avatarImgIdStr;
             private String backgroundImgIdStr;
-            private int userId;
+            private String userId;
             private int accountStatus;
             private int vipType;
             private int province;
@@ -273,11 +273,11 @@ public class DayRecommendPlaylists {
                 this.backgroundImgIdStr = backgroundImgIdStr;
             }
 
-            public int getUserId() {
+            public String getUserId() {
                 return userId;
             }
 
-            public void setUserId(int userId) {
+            public void setUserId(String userId) {
                 this.userId = userId;
             }
 

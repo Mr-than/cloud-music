@@ -3,6 +3,8 @@ package com.example.redrock.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.redrock.room.HomePageDataBase;
+
 /**
  * description:让全局都能获取到当前Context
  * author:冉跃
@@ -11,6 +13,7 @@ import android.content.Context;
  */
 
 public class APP extends Application {
+
     private static Context context;
 
     public void onCreate() {
@@ -21,4 +24,6 @@ public class APP extends Application {
     public static Context getContext(){
         return context;
     }
+
+
 }

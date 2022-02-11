@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/click_background"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/playlist_song_item_nu"
+        android:textSize="15dp"
+        android:layout_marginLeft="20dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:id="@+id/playlist_song_item_name"/>
+
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/playlist_song_item_album"
+                android:layout_marginLeft="23dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" — "
+                />
+            <TextView
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/playlist_song_item_au" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

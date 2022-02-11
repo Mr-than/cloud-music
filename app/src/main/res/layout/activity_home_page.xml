@@ -8,25 +8,113 @@
     android:layout_height="match_parent"
     tools:context=".activity.HomePageActivity">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/home_page_vp"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/home_page_drawerLayout"
         android:layout_width="match_parent"
-        android:layout_weight="15"
-        android:layout_height="0dp"/>
+        android:layout_height="match_parent">
+
+        <include layout="@layout/start_layout"/>
+
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_page_toolbar"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            app:drawableStartCompat="@drawable/search"
+            android:gravity="center|left"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:hint="陈奕迅"
+            android:background="@drawable/search_box_home_page"
+            android:layout_gravity="center"
+            android:layout_width="260dp"
+            android:layout_height="30dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_page_vp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"/>
+
+     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/Home_page_song_po"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="17dp" />
+        <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:id="@+id/home_page_song_na"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+           android:ellipsize="end"
+           android:singleLine="true"
+           android:id="@+id/home_page_song_au"
+           android:layout_width="100dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:textSize="10dp" />
+
+        <LinearLayout
+           android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/home_page_play"
+                android:clickable="true"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="40dp"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/home_page_ty"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.1"
         android:layout_gravity="bottom"
         android:background="#00FFFFFF"
         app:tabBackground="@null"
         app:tabIndicatorColor="@null"
         app:tabIndicatorFullWidth="false"
         app:tabRippleColor="@null"
+        app:tabTextAppearance="@style/size"
         app:tabSelectedTextColor="#F27070"
         app:tabTextColor="#B3B3B3" />
-
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>

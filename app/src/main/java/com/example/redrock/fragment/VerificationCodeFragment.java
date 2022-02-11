@@ -23,7 +23,7 @@ import com.example.redrock.activity.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerificationCodeFragment extends Fragment {
+public class VerificationCodeFragment<MainActivity> extends Fragment {
     private View view;
     private EditText e1,e2,e3,e4,e5,e6;
     private String code;
@@ -38,7 +38,6 @@ public class VerificationCodeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.verification_fragment,container,false);
         mainActivity=(MainActivity)getActivity();
-
 
         init();
 
@@ -62,30 +61,30 @@ public class VerificationCodeFragment extends Fragment {
                 transaction.commit();
             }
         });
-        //++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         is=true;
-        //+++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e1=view.findViewById(R.id.e1);
         e2=view.findViewById(R.id.e2);
         e3=view.findViewById(R.id.e3);
         e4=view.findViewById(R.id.e4);
         e5=view.findViewById(R.id.e5);
         e6=view.findViewById(R.id.e6);
-        //+++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e1.setCursorVisible(false);
         e2.setCursorVisible(false);
         e3.setCursorVisible(false);
         e4.setCursorVisible(false);
         e5.setCursorVisible(false);
         e6.setCursorVisible(false);
-        //+++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         List<EditText> list=new ArrayList<>();
         list.add(e2);
         list.add(e3);
         list.add(e4);
         list.add(e5);
         list.add(e6);
-        //+++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -149,7 +148,7 @@ public class VerificationCodeFragment extends Fragment {
 
             }
         });
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -171,14 +170,19 @@ public class VerificationCodeFragment extends Fragment {
                 if(e2.getText().toString().length()<=0||e2.getText().toString()==null){
                     e1.requestFocus();
                     e1.setFocusableInTouchMode(true);
-                    e1.setSelection(1);
+
+                    if(e1.getText().toString().length()>0) {
+                        e1.setSelection(1);
+                    }else {
+                        e1.setSelection(0);
+                    }
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e1, 0);
                 }
 
             }
         });
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -198,7 +202,13 @@ public class VerificationCodeFragment extends Fragment {
 
                 if(e3.getText().toString().length()<=0||e3.getText().toString()==null){
                     e2.requestFocus();
-                    e2.setSelection(1);
+
+                    if(e2.getText().toString().length()>0) {
+                        e2.setSelection(1);
+                    }else {
+                        e2.setSelection(0);
+                    }
+
                     e2.setFocusableInTouchMode(true);
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e2, 0);
@@ -206,7 +216,7 @@ public class VerificationCodeFragment extends Fragment {
 
             }
         });
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -226,14 +236,20 @@ public class VerificationCodeFragment extends Fragment {
 
                 if(e4.getText().toString().length()<=0||e4.getText().toString()==null){
                     e3.requestFocus();
-                    e3.setSelection(1);
+
+                    if(e3.getText().toString().length()>0) {
+                        e3.setSelection(1);
+                    }else {
+                        e3.setSelection(0);
+                    }
+
                     e3.setFocusableInTouchMode(true);
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e3, 0);
                 }
             }
         });
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -253,7 +269,11 @@ public class VerificationCodeFragment extends Fragment {
 
                 if(e5.getText().toString().length()<=0||e5.getText().toString()==null){
                     e4.requestFocus();
-                    e4.setSelection(1);
+                    if(e4.getText().toString().length()>0) {
+                        e4.setSelection(1);
+                    }else {
+                        e4.setSelection(0);
+                    }
                     e4.setFocusableInTouchMode(true);
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e4, 0);
@@ -262,7 +282,7 @@ public class VerificationCodeFragment extends Fragment {
             }
         });
 
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e6.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -279,7 +299,11 @@ public class VerificationCodeFragment extends Fragment {
 
                 if(e6.getText().toString().length()<=0||e6.getText().toString()==null){
                     e5.requestFocus();
-                    e5.setSelection(1);
+                    if(e5.getText().toString().length()>0) {
+                        e5.setSelection(1);
+                    }else {
+                        e5.setSelection(0);
+                    }
                     e5.setFocusableInTouchMode(true);
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e5, 0);

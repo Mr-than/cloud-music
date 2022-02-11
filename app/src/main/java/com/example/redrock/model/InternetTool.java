@@ -1,16 +1,22 @@
-package com.example.mvvmdemo;
+package com.example.redrock.model;
 
 import android.widget.Toast;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import com.example.redrock.activity.PlaylistSongActivity;
+import com.example.redrock.base.APP;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
+
+/**
+ *   description:网络请求工具
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/1/24
+ */
 
 public class InternetTool {
 
@@ -24,11 +30,14 @@ public class InternetTool {
     private String url;
     //请求类型
 
+    //由于get请求完全能满足要求，所以并没有封装post及其他请求类型
+
     //get请求
     public static final String GET="GET";
     //保存请求类型
     private String type;
-    //请求头
+
+    //请求头虽然一般情况下用不到，但是我必须要有一个，即便没怎么好好封装这玩意儿 /doge
     private String headerKey;
     private String headerContent;
 
@@ -93,17 +102,15 @@ public class InternetTool {
                 try{
                     URL url=new URL(InternetTool.this.url);
                     HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+                    connection.setConnectTimeout(8000);
                     connection.setRequestMethod("GET");
                     if(InternetTool.this.headerKey!=null&&InternetTool.this.headerContent!=null){
-                        connection.setRequestProperty(headerContent,headerKey);
+                        connection.setRequestProperty(headerKey,headerContent);
                     }
                     connection.setDoInput(true);
-
-
-
+                    connection.connect();
 
                     StringBuilder stringBuilder=new StringBuilder();
-
                     InputStream in=connection.getInputStream();
                     BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(in));
                     String line=null;
@@ -113,8 +120,9 @@ public class InternetTool {
                     }
 
                     onFinish(stringBuilder,back);
-                    //Toast.makeText(, "", Toast.LENGTH_SHORT).show();
+
                 }catch (Exception e){
+                   // Toast.makeText(PlaylistSongActivity.PLAYLIST_ACTIVITY, "网络异常，加载歌单失败", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -131,4 +139,3 @@ public class InternetTool {
         public void onFinish(String data);
     }
 }
-

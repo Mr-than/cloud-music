@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Than</string>
+    <string name="la"></string>
     <string name="login_phone">手机号登录</string>
 </resources>

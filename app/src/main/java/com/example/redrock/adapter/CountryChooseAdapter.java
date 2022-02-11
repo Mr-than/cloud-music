@@ -73,5 +73,4 @@ public class CountryChooseAdapter extends RecyclerView.Adapter<CountryChooseAdap
             countryName=itemView.findViewById(R.id.CountryName);
         }
     }
-
 }

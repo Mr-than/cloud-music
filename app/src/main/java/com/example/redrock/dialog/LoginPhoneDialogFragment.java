@@ -77,6 +77,8 @@ public class LoginPhoneDialogFragment extends DialogFragment {
         county.setLayoutManager(manager);
         county.addItemDecoration(new CountryChooseTitle());
         county.setAdapter(countryChooseAdapter);
+
+
     return dialog;
     }
 

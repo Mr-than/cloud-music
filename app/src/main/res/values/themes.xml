@@ -30,6 +30,10 @@
         <item name="android:windowEnterAnimation">@anim/phone_dialog_up</item>
         <item name="android:windowExitAnimation">@anim/phone_dialog_down</item>
     </style>
+    
+    <style name="size">
+        <item name="android:textSize">10dp</item>
+    </style>
 
 
 </resources>

@@ -69,6 +69,4 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.fra_global,fragment);
         transaction.commit();
     }
-
-
 }

@@ -2,7 +2,6 @@ package com.example.redrock.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,7 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
     private View view;
     //这个是活动
     private MainActivity mainActivity;
-    //国家嘛的textview
+    //国家码的textview
     private TextView countryCode;
     //下一步按钮
     private Button nextStep;
@@ -54,7 +53,9 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        view=inflater.inflate(R.layout.fragment_loginphone,container,false);
        mainActivity=(MainActivity)getActivity();
-       mainActivity.isBack=true;
+        if (mainActivity != null) {
+            mainActivity.isBack=true;
+        }
 
         init();
 
@@ -115,11 +116,11 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
                 if(phoneNumber.getText().toString().length()==0||phoneNumber.getText().toString()==null){
                     Toast.makeText(getActivity(), "请输入手机号", Toast.LENGTH_SHORT).show();
                 }else {
-                    if(phoneNumber.getText().toString().length()>11&&phoneNumber.getText().toString().length()<11){
-                        Toast.makeText(getActivity(), "你输个正确的手机号会咋地？", Toast.LENGTH_SHORT).show();
+                    if(phoneNumber.getText().toString().length()>11||phoneNumber.getText().toString().length()<11){
+                        Toast.makeText(getActivity(), "你输个格式正确的手机号会咋地？", Toast.LENGTH_SHORT).show();
                     }else {
                         FragmentManager fm = getActivity().getSupportFragmentManager();
-                        VerificationCodeFragment fragment = new VerificationCodeFragment();
+                        PhonePassword fragment = new PhonePassword();
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.replace(R.id.fra_global, fragment);
                         transaction.commit();
@@ -145,9 +146,4 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
             default:break;
         }
     }
-
-
-
-
-
 }

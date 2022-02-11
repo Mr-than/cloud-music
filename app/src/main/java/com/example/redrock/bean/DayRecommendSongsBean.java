@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity
-public class DayRecommendSongs {
+public class DayRecommendSongsBean {
 
     @PrimaryKey(autoGenerate = true)
     public long id=0;
