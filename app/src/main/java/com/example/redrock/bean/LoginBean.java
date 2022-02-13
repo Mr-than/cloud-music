@@ -6,10 +6,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity
-public class AccountInformationBean {
-
-    @PrimaryKey(autoGenerate = true)
-    public long id=0;
+public class LoginBean {
 
 
     private int loginType;
@@ -77,19 +74,21 @@ public class AccountInformationBean {
     }
 
     public static class AccountDTO {
+        @PrimaryKey
         private String id;
+
         private String userName;
         private int type;
         private int status;
         private int whitelistAuthority;
-        private String createTime;
+        private long createTime;
         private String salt;
         private int tokenVersion;
         private int ban;
         private int baoyueVersion;
         private int donateVersion;
         private int vipType;
-        private String viptypeVersion;
+        private long viptypeVersion;
         private boolean anonimousUser;
         private boolean uninitialized;
 
@@ -133,11 +132,11 @@ public class AccountInformationBean {
             this.whitelistAuthority = whitelistAuthority;
         }
 
-        public String getCreateTime() {
+        public long getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(String createTime) {
+        public void setCreateTime(long createTime) {
             this.createTime = createTime;
         }
 
@@ -189,11 +188,11 @@ public class AccountInformationBean {
             this.vipType = vipType;
         }
 
-        public String getViptypeVersion() {
+        public long getViptypeVersion() {
             return viptypeVersion;
         }
 
-        public void setViptypeVersion(String viptypeVersion) {
+        public void setViptypeVersion(long viptypeVersion) {
             this.viptypeVersion = viptypeVersion;
         }
 
@@ -215,31 +214,31 @@ public class AccountInformationBean {
     }
 
     public static class ProfileDTO {
-        private boolean followed;
-        private String backgroundUrl;
-        private String detailDescription;
-        private String backgroundImgIdStr;
-        private String avatarImgIdStr;
-        private String userId;
-        private int userType;
-        private int vipType;
         private int gender;
+        private int vipType;
         private int accountStatus;
-        private String avatarImgId;
+        private long avatarImgId;
         private String nickname;
-        private String backgroundImgId;
-        private String birthday;
         private int city;
         private String avatarUrl;
         private boolean defaultAvatar;
         private int province;
-        private Object expertTags;
-        private ExpertsDTO experts;
+        private long backgroundImgId;
+        private long birthday;
         private boolean mutual;
         private Object remarkName;
         private int authStatus;
         private int djStatus;
+        private Object expertTags;
+        private ExpertsDTO experts;
+        private int userId;
+        private int userType;
+        private boolean followed;
+        private String backgroundUrl;
+        private String detailDescription;
         private String description;
+        private String avatarImgIdStr;
+        private String backgroundImgIdStr;
         private String signature;
         private int authority;
         private String avatarImgId_str;
@@ -250,60 +249,12 @@ public class AccountInformationBean {
         private int playlistCount;
         private int playlistBeSubscribedCount;
 
-        public boolean isFollowed() {
-            return followed;
+        public int getGender() {
+            return gender;
         }
 
-        public void setFollowed(boolean followed) {
-            this.followed = followed;
-        }
-
-        public String getBackgroundUrl() {
-            return backgroundUrl;
-        }
-
-        public void setBackgroundUrl(String backgroundUrl) {
-            this.backgroundUrl = backgroundUrl;
-        }
-
-        public String getDetailDescription() {
-            return detailDescription;
-        }
-
-        public void setDetailDescription(String detailDescription) {
-            this.detailDescription = detailDescription;
-        }
-
-        public String getBackgroundImgIdStr() {
-            return backgroundImgIdStr;
-        }
-
-        public void setBackgroundImgIdStr(String backgroundImgIdStr) {
-            this.backgroundImgIdStr = backgroundImgIdStr;
-        }
-
-        public String getAvatarImgIdStr() {
-            return avatarImgIdStr;
-        }
-
-        public void setAvatarImgIdStr(String avatarImgIdStr) {
-            this.avatarImgIdStr = avatarImgIdStr;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public int getUserType() {
-            return userType;
-        }
-
-        public void setUserType(int userType) {
-            this.userType = userType;
+        public void setGender(int gender) {
+            this.gender = gender;
         }
 
         public int getVipType() {
@@ -314,14 +265,6 @@ public class AccountInformationBean {
             this.vipType = vipType;
         }
 
-        public int getGender() {
-            return gender;
-        }
-
-        public void setGender(int gender) {
-            this.gender = gender;
-        }
-
         public int getAccountStatus() {
             return accountStatus;
         }
@@ -330,11 +273,11 @@ public class AccountInformationBean {
             this.accountStatus = accountStatus;
         }
 
-        public String getAvatarImgId() {
+        public long getAvatarImgId() {
             return avatarImgId;
         }
 
-        public void setAvatarImgId(String avatarImgId) {
+        public void setAvatarImgId(long avatarImgId) {
             this.avatarImgId = avatarImgId;
         }
 
@@ -344,22 +287,6 @@ public class AccountInformationBean {
 
         public void setNickname(String nickname) {
             this.nickname = nickname;
-        }
-
-        public String getBackgroundImgId() {
-            return backgroundImgId;
-        }
-
-        public void setBackgroundImgId(String backgroundImgId) {
-            this.backgroundImgId = backgroundImgId;
-        }
-
-        public String getBirthday() {
-            return birthday;
-        }
-
-        public void setBirthday(String birthday) {
-            this.birthday = birthday;
         }
 
         public int getCity() {
@@ -394,20 +321,20 @@ public class AccountInformationBean {
             this.province = province;
         }
 
-        public Object getExpertTags() {
-            return expertTags;
+        public long getBackgroundImgId() {
+            return backgroundImgId;
         }
 
-        public void setExpertTags(Object expertTags) {
-            this.expertTags = expertTags;
+        public void setBackgroundImgId(long backgroundImgId) {
+            this.backgroundImgId = backgroundImgId;
         }
 
-        public ExpertsDTO getExperts() {
-            return experts;
+        public long getBirthday() {
+            return birthday;
         }
 
-        public void setExperts(ExpertsDTO experts) {
-            this.experts = experts;
+        public void setBirthday(long birthday) {
+            this.birthday = birthday;
         }
 
         public boolean isMutual() {
@@ -442,12 +369,84 @@ public class AccountInformationBean {
             this.djStatus = djStatus;
         }
 
+        public Object getExpertTags() {
+            return expertTags;
+        }
+
+        public void setExpertTags(Object expertTags) {
+            this.expertTags = expertTags;
+        }
+
+        public ExpertsDTO getExperts() {
+            return experts;
+        }
+
+        public void setExperts(ExpertsDTO experts) {
+            this.experts = experts;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public int getUserType() {
+            return userType;
+        }
+
+        public void setUserType(int userType) {
+            this.userType = userType;
+        }
+
+        public boolean isFollowed() {
+            return followed;
+        }
+
+        public void setFollowed(boolean followed) {
+            this.followed = followed;
+        }
+
+        public String getBackgroundUrl() {
+            return backgroundUrl;
+        }
+
+        public void setBackgroundUrl(String backgroundUrl) {
+            this.backgroundUrl = backgroundUrl;
+        }
+
+        public String getDetailDescription() {
+            return detailDescription;
+        }
+
+        public void setDetailDescription(String detailDescription) {
+            this.detailDescription = detailDescription;
+        }
+
         public String getDescription() {
             return description;
         }
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getAvatarImgIdStr() {
+            return avatarImgIdStr;
+        }
+
+        public void setAvatarImgIdStr(String avatarImgIdStr) {
+            this.avatarImgIdStr = avatarImgIdStr;
+        }
+
+        public String getBackgroundImgIdStr() {
+            return backgroundImgIdStr;
+        }
+
+        public void setBackgroundImgIdStr(String backgroundImgIdStr) {
+            this.backgroundImgIdStr = backgroundImgIdStr;
         }
 
         public String getSignature() {
@@ -527,47 +526,15 @@ public class AccountInformationBean {
     }
 
     public static class BindingsDTO {
-        private int userId;
-        private String url;
-        private boolean expired;
-        private long bindingTime;
         private String tokenJsonStr;
         private int expiresIn;
+        private long bindingTime;
         private int refreshTime;
+        private String url;
+        private int userId;
+        private boolean expired;
         private long id;
         private int type;
-
-        public int getUserId() {
-            return userId;
-        }
-
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public boolean isExpired() {
-            return expired;
-        }
-
-        public void setExpired(boolean expired) {
-            this.expired = expired;
-        }
-
-        public long getBindingTime() {
-            return bindingTime;
-        }
-
-        public void setBindingTime(long bindingTime) {
-            this.bindingTime = bindingTime;
-        }
 
         public String getTokenJsonStr() {
             return tokenJsonStr;
@@ -585,12 +552,44 @@ public class AccountInformationBean {
             this.expiresIn = expiresIn;
         }
 
+        public long getBindingTime() {
+            return bindingTime;
+        }
+
+        public void setBindingTime(long bindingTime) {
+            this.bindingTime = bindingTime;
+        }
+
         public int getRefreshTime() {
             return refreshTime;
         }
 
         public void setRefreshTime(int refreshTime) {
             this.refreshTime = refreshTime;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public boolean isExpired() {
+            return expired;
+        }
+
+        public void setExpired(boolean expired) {
+            this.expired = expired;
         }
 
         public long getId() {

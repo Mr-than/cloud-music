@@ -1,5 +1,6 @@
 package com.example.redrock.viewModel;
 
+import android.content.ServiceConnection;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -36,6 +37,8 @@ public class HomePageFoundViewModel extends ViewModel {
     private MutableLiveData<List<String>> _recommendSongPhoto=new MutableLiveData<>();
     private MutableLiveData<List<String>> _recommendSongName=new MutableLiveData<>();
     private MutableLiveData<List<String>> _recommendSongAu=new MutableLiveData<>();
+    private MutableLiveData<List<String>> _recommendSongId=new MutableLiveData<>();
+    private MutableLiveData<ServiceConnection> _connection=new MutableLiveData<>();
 
 
     public final LiveData<List<DayRecommendBean>> recommendPlaylist=_recommendPlaylist;
@@ -47,7 +50,9 @@ public class HomePageFoundViewModel extends ViewModel {
     public final LiveData<List<String>> recommendSongPhoto=_recommendSongPhoto;
     public final LiveData<List<String>> recommendSongName=_recommendSongName;
     public final LiveData<List<String>> recommendSongAu=_recommendSongAu;
+    public final LiveData<List<String>> recommendSongId=_recommendSongId;
 
+    public final LiveData<ServiceConnection> connection=_connection;
 
     private InternetTool tool;
 
@@ -263,6 +268,7 @@ public class HomePageFoundViewModel extends ViewModel {
                 List<String> name=new ArrayList<>();
                 List<String> photo=new ArrayList<>();
                 List<String> au=new ArrayList<>();
+                List<String> id=new ArrayList<>();
 
                 DayRecommendSongsBean dayRecommendSongsBean=new DayRecommendSongsBean();
                 List<DayRecommendSongsBean> list=dayRecommendSongsDao.load();
@@ -278,13 +284,20 @@ public class HomePageFoundViewModel extends ViewModel {
                         name.add(dayRecommendSongsBean.getData().getDailySongs().get(i).getName());
                         photo.add(dayRecommendSongsBean.getData().getDailySongs().get(i).getAl().getPicUrl());
                         au.add(dayRecommendSongsBean.getData().getDailySongs().get(i).getAr().get(0).getName());
+                        id.add(dayRecommendSongsBean.getData().getDailySongs().get(i).getId());
                 }
 
                 _recommendSongName.postValue(name);
                 _recommendSongPhoto.postValue(photo);
                 _recommendSongAu.postValue(au);
+                _recommendSongId.postValue(id);
 
             }break;
         }
     }
+
+    public void setServiceConnection(ServiceConnection s){
+        _connection.postValue(s);
+    }
+
 }

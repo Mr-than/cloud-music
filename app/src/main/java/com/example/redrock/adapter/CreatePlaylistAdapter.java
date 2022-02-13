@@ -63,6 +63,7 @@ public class CreatePlaylistAdapter extends RecyclerView.Adapter<CreatePlaylistAd
                             e.printStackTrace();
                         }
                         playlistSongActivity=PlaylistSongActivity.PLAYLIST_ACTIVITY;
+
                         playlistSongViewModel= ViewModelProviders.of(playlistSongActivity).get(PlaylistSongViewModel.class);
                         playlistSongViewModel.getPlaylistSong(createPlaylist.getId());
                     }

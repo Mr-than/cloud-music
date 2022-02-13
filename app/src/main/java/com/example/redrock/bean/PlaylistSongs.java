@@ -10,14 +10,19 @@ public class PlaylistSongs {
     private String playlistPhoto;
     private String playlistName;
 
-    public PlaylistSongs(int num, String name, String album, String author,String photo,String playlistPhoto,String playlistName) {
+    public PlaylistSongs(int num, String name, String album, String author,String photo,String playlistPhoto,String playlistName,String id) {
         this.num = num;
+        this.id=id;
         this.name = name;
         this.album = album;
         this.author = author;
         this.photo=photo;
         this.playlistName=playlistName;
         this.playlistPhoto=playlistPhoto;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getPlaylistName() {

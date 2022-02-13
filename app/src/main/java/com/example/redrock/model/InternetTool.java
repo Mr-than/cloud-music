@@ -21,13 +21,13 @@ import java.net.URL;
 public class InternetTool {
 
     //基本服务器地址
-    private String baseUrl;
+    private StringBuilder baseUrl;
     //接口地址
     private String portPath;
     //需要拼接的请求数据
-    private String requestData;
+    private StringBuilder requestData;
     //接口总地址
-    private String url;
+    private StringBuilder url;
     //请求类型
 
     //由于get请求完全能满足要求，所以并没有封装post及其他请求类型
@@ -43,18 +43,20 @@ public class InternetTool {
 
     public InternetTool(){
 
-        baseUrl=null;
+        baseUrl=new StringBuilder();
         portPath=null;
-        requestData=null;
-        url=null;
+        requestData=new StringBuilder();
+        url=new StringBuilder();
         headerKey=null;
         headerContent=null;
     }
 
 
     public InternetTool setBaseUrl(String baseUrl){
-        this.baseUrl=baseUrl;
-        url=baseUrl;
+        this.baseUrl=new StringBuilder();
+        this.baseUrl.append(baseUrl);
+        url=new StringBuilder();
+        url.append(baseUrl);
         return this;
     }
     public InternetTool setRequestType(String type){
@@ -63,18 +65,24 @@ public class InternetTool {
     }
     public InternetTool setPortPath(String path){
         this.portPath=path;
-        url=baseUrl+portPath;
+        baseUrl.append(portPath);
+        url=baseUrl;
         return this;
     }
 
-    public InternetTool setRequestData(String key,String value){
-        if(requestData==null||requestData.equals("")){
-            requestData=key+"="+value;
-            url=this.baseUrl+portPath+"?"+requestData;
+    public synchronized InternetTool setRequestData(String key,String value){
+        if(requestData==null||requestData.toString().equals("")){
+            requestData=new StringBuilder();
+            //requestData=key+"="+value;
+            requestData.append(key+"="+value);
+            url=baseUrl.append("?").append(requestData);
+            //url=this.baseUrl+portPath+"?"+requestData;
         }else{
-            requestData=null;
-            requestData=key+"="+value;
-            url=url+"&"+requestData;
+            requestData=new StringBuilder();
+            //requestData=key+"="+value;
+            requestData.append(key+"="+value);
+            //url=url+"&"+requestData;
+            url.append("&").append(requestData);
         }
         return this;
     }
@@ -100,7 +108,7 @@ public class InternetTool {
             @Override
             public void run() {
                 try{
-                    URL url=new URL(InternetTool.this.url);
+                    URL url=new URL(InternetTool.this.url.toString());
                     HttpURLConnection connection=(HttpURLConnection) url.openConnection();
                     connection.setConnectTimeout(8000);
                     connection.setRequestMethod("GET");
@@ -125,6 +133,14 @@ public class InternetTool {
                    // Toast.makeText(PlaylistSongActivity.PLAYLIST_ACTIVITY, "网络异常，加载歌单失败", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+
+
+                baseUrl=new StringBuilder();
+                portPath=null;
+                requestData=new StringBuilder();
+                url=new StringBuilder();
+                headerKey=null;
+                headerContent=null;
 
             }
         }).start();

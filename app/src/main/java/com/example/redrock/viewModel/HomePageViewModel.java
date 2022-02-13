@@ -1,5 +1,7 @@
 package com.example.redrock.viewModel;
 
+import android.content.ServiceConnection;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,6 +14,7 @@ import com.example.redrock.model.InternetTool;
 import com.example.redrock.room.AccountInformationDao;
 import com.example.redrock.room.DayRecommendSongsDao;
 import com.example.redrock.room.HomePageDataBase;
+import com.example.redrock.service.PlayMusicService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +26,10 @@ public class HomePageViewModel extends ViewModel {
     private MutableLiveData<String> _songPhoto=new MutableLiveData<>();
     private MutableLiveData<String> _songName=new MutableLiveData<>();
     private MutableLiveData<String> _songAu=new MutableLiveData<>();
+    private MutableLiveData<String> _songId=new MutableLiveData<>();
+
+    private MutableLiveData<PlayMusicService.PlaySongBinder> _serviceConnect=new MutableLiveData<>();
+
 
     private MutableLiveData<String> _headPortrait=new MutableLiveData<>();
     private MutableLiveData<String> _userName=new MutableLiveData<>();
@@ -34,6 +41,10 @@ public class HomePageViewModel extends ViewModel {
 
     public final LiveData<String> songPhoto=_songPhoto;
     public final LiveData<String> songName=_songName;
+    public final LiveData<String> songId=_songId;
+
+    public final LiveData<PlayMusicService.PlaySongBinder> serviceConnect=_serviceConnect;
+
 
     public final LiveData<String> songAu=_songAu;
 
@@ -88,6 +99,7 @@ public class HomePageViewModel extends ViewModel {
         _songPhoto.postValue(data.get(0));
         _songName.postValue(data.get(1));
         _songAu.postValue(" — "+data.get(2));
+        _songId.postValue(data.get(3));
     }
 
     public void setPauseOrPlay(){
@@ -101,9 +113,15 @@ public class HomePageViewModel extends ViewModel {
         }
 
     }
+
     public void setPlay(){
         _pausePlay.postValue(R.drawable.start);
         isPlay=true;
+    }
+
+    public void setPause(){
+        _pausePlay.postValue(R.drawable.pause);
+        isPlay=false;
     }
 
 
@@ -130,7 +148,6 @@ public class HomePageViewModel extends ViewModel {
         _headPortrait.postValue(accountInformationBean.getProfile().getAvatarUrl());
         _userName.postValue(accountInformationBean.getProfile().getNickname());
 
-        //homePageMyViewModel.getUserInformationData(accountInformationBean.getProfile().getAvatarUrl(),accountInformationBean.getProfile().getNickname());
 
         this.userData.add(accountInformationBean.getProfile().getAvatarUrl());
         this.userData.add(accountInformationBean.getProfile().getNickname());
@@ -138,6 +155,10 @@ public class HomePageViewModel extends ViewModel {
 
     public List<String> getUserData(){
         return this.userData;
+    }
+
+    public void setServiceBinder(PlayMusicService.PlaySongBinder mBinder){
+        _serviceConnect.postValue(mBinder);
     }
 
 

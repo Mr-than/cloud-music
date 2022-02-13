@@ -1,7 +1,11 @@
 package com.example.redrock.fragment;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,7 @@ import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.adapter.DayRecommendPlaylistAdapter;
 import com.example.redrock.base.APP;
 import com.example.redrock.bean.DayRecommendBean;
+import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewModel.HomePageFoundViewModel;
 import com.example.redrock.viewModel.HomePageViewModel;
 import com.example.redrock.viewModel.PlaylistSongViewModel;
@@ -36,10 +41,12 @@ import java.util.Random;
 public class PageFound extends Fragment implements View.OnClickListener{
 
     private View view;
+    private boolean isService;
     private HomePageFoundViewModel homePageFoundViewModel;
     private HomePageViewModel homePageViewModel;
     private TextView wonderfulName1,wonderfulName2,wonderfulName3,recommendSongName1,recommendSongName2,recommendSongName3;
     private ImageView wonderfulPhoto1,wonderfulPhoto2,wonderfulPhoto3,recommendSongPhoto1,recommendSongPhoto2,recommendSongPhoto3,dayMusic;
+    private HomePageActivity homePageActivity;
     private int number;
     private RecyclerView recommendPlaylist;
     private List<String> wonderfulPlaylistIds;
@@ -47,7 +54,12 @@ public class PageFound extends Fragment implements View.OnClickListener{
     private String photo1,photo2,photo3;
     private String name1,name2,name3;
     private String au1,au2,au3;
+    private String id1,id2,id3;
     private LinearLayout recommendSong1,recommendSong2,recommendSong3;
+    private PlayMusicService.PlaySongBinder binder;
+    private ServiceConnection connection;
+
+    private boolean isBind=false;
 
     public static final String DAY_RECOMMEND_SONGS="DAY_RECOMMEND";
 
@@ -57,6 +69,30 @@ public class PageFound extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.page_found_fragment,container,false);
         initView();
+
+       connection=new ServiceConnection() {
+           @Override
+           public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+               if(homePageViewModel.serviceConnect.getValue()!=null){
+                   binder=homePageViewModel.serviceConnect.getValue();
+               }else {
+                   binder = (PlayMusicService.PlaySongBinder) iBinder;
+                   isBind=true;
+               }
+           }
+
+           @Override
+           public void onServiceDisconnected(ComponentName componentName) {
+
+           }
+       };
+
+        homePageViewModel.serviceConnect.observe(homePageActivity, new Observer<PlayMusicService.PlaySongBinder>() {
+            @Override
+            public void onChanged(PlayMusicService.PlaySongBinder playSongBinder) {
+                binder=playSongBinder;
+            }
+        });
 
         Random random=new Random();
         number=random.nextInt(47);
@@ -138,12 +174,22 @@ public class PageFound extends Fragment implements View.OnClickListener{
                 au3=strings.get(2);
             }
         });
+        homePageFoundViewModel.recommendSongId.observe(requireActivity(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                id1=strings.get(0);
+                id2=strings.get(1);
+                id3=strings.get(2);
+            }
+        });
 
 
         return view;
     }
 
     private void initView(){
+        isService=false;
+        homePageActivity=(HomePageActivity)getActivity();
         wonderfulName1=view.findViewById(R.id.home_page_found_wonderful_name_1);
         wonderfulName2=view.findViewById(R.id.home_page_found_wonderful_name_2);
         wonderfulName3=view.findViewById(R.id.home_page_found_wonderful_name_3);
@@ -178,7 +224,7 @@ public class PageFound extends Fragment implements View.OnClickListener{
         dayMusic=view.findViewById(R.id.day_music);
         dayMusic.setOnClickListener(this);
         if(getActivity()!=null) {
-            homePageViewModel = ViewModelProviders.of((HomePageActivity) getActivity()).get(HomePageViewModel.class);
+            homePageViewModel = ViewModelProviders.of(homePageActivity).get(HomePageViewModel.class);
         }
 
 
@@ -261,32 +307,72 @@ public class PageFound extends Fragment implements View.OnClickListener{
                 }).start();
 
             }break;
+
             case R.id.home_page_found_song_1:{
 
                 List<String> list=new ArrayList<>();
                 list.add(photo1);
                 list.add(name1);
                 list.add(au1);
+                list.add(id1);
                 homePageViewModel.setSongData(list);
+                homePageViewModel.setPlay();
+                playMusic(id1);
+                homePageActivity.setPlay();
 
             }break;
+
             case R.id.home_page_found_song_2:{
                 List<String> list=new ArrayList<>();
                 list.add(photo2);
                 list.add(name2);
                 list.add(au2);
+                list.add(id2);
                 homePageViewModel.setSongData(list);
+                homePageViewModel.setPlay();
+                playMusic(id2);
+                homePageActivity.setPlay();
 
             }break;
+
             case R.id.home_page_found_song_3:{
                 List<String> list=new ArrayList<>();
                 list.add(photo3);
                 list.add(name3);
                 list.add(au3);
+                list.add(id3);
                 homePageViewModel.setSongData(list);
+                homePageViewModel.setPlay();
+                playMusic(id3);
+                homePageActivity.setPlay();
 
             }break;
+
+
             default:break;
         }
+    }
+
+    private void playMusic(String id){
+
+        if(!isBind) {
+            getActivity().bindService(new Intent((HomePageActivity) getActivity(), PlayMusicService.class), connection, Context.BIND_AUTO_CREATE);
+        }
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        binder.prepare(id);
+                        homePageViewModel.setServiceBinder(binder);
+                        isService=true;
+                    }
+                }).start();
+
     }
 }

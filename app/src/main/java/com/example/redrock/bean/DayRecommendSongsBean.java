@@ -90,7 +90,7 @@ public class DayRecommendSongsBean {
             private int djId;
             private int copyright;
             private int s_id;
-            private int mark;
+            private String mark;
             private int originCoverType;
             private Object originSongSimpleData;
             private int single;
@@ -322,11 +322,11 @@ public class DayRecommendSongsBean {
                 this.s_id = s_id;
             }
 
-            public int getMark() {
+            public String getMark() {
                 return mark;
             }
 
-            public void setMark(int mark) {
+            public void setMark(String mark) {
                 this.mark = mark;
             }
 

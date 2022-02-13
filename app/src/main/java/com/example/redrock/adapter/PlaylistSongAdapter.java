@@ -1,5 +1,10 @@
 package com.example.redrock.adapter;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.redrock.R;
 import com.example.redrock.activity.HomePageActivity;
+import com.example.redrock.activity.LyricsActivity;
+import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.bean.PlaylistSongs;
+import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewModel.HomePageViewModel;
+import com.example.redrock.viewModel.LyricsActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +32,39 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
     private View view;
     private HomePageActivity homePageActivity;
     private HomePageViewModel homePageViewModel;
+    private boolean isService=false;
+    private boolean isBind=false;
+    private LyricsActivity lyricsActivity;
+    private LyricsActivityViewModel lyricsActivityViewModel;
+    private PlayMusicService.PlaySongBinder playSongBinder;
+    private ServiceConnection connection;
+
+
 
     public PlaylistSongAdapter(List<PlaylistSongs> list, HomePageActivity homePageActivity) {
         this.list = list;
         this.homePageActivity =homePageActivity;
         homePageViewModel= ViewModelProviders.of(homePageActivity).get(HomePageViewModel.class);
+
+
+
+            connection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                    if(homePageViewModel.serviceConnect.getValue()!=null){
+                        playSongBinder=homePageViewModel.serviceConnect.getValue();
+                    }else {
+                        playSongBinder = (PlayMusicService.PlaySongBinder) iBinder;
+                    }
+
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName componentName) {
+
+                }
+            };
+
     }
 
     @NonNull
@@ -46,9 +83,61 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                 list.add(songs.getPhoto());
                 list.add(songs.getName());
                 list.add(songs.getAuthor());
+                list.add(songs.getId());
+
                 homePageViewModel.setSongData(list);
+
                 homePageViewModel.setPlay();
-            }
+
+
+
+                if(!isBind) {
+                    homePageActivity.bindService(new Intent(homePageActivity, PlayMusicService.class), connection, Context.BIND_AUTO_CREATE);
+                    isBind=true;
+                }
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        playSongBinder.prepare(songs.getId());
+                        homePageViewModel.setServiceBinder(playSongBinder);
+                    }
+                }).start();
+
+                    Intent intent=new Intent(PlaylistSongActivity.PLAYLIST_ACTIVITY, LyricsActivity.class);
+                    PlaylistSongActivity.PLAYLIST_ACTIVITY.startActivity(intent);
+
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                                    lyricsActivity = LyricsActivity.LYRICS_ACTIVITY;
+                                    lyricsActivityViewModel = ViewModelProviders.of(lyricsActivity).get(LyricsActivityViewModel.class);
+                                    lyricsActivityViewModel.getLyrics(songs.getId());
+
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    lyricsActivityViewModel.setServiceBinder(playSongBinder);
+                                    lyricsActivityViewModel.setName(songs.getName());
+                                }
+
+                    }).start();
+
+           }
         });
         return holder;
     }

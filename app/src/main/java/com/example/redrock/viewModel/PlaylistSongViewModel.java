@@ -65,6 +65,7 @@ public class PlaylistSongViewModel extends ViewModel {
                 tool = new InternetTool();
                 tool.setBaseUrl("http://redrock.udday.cn:2022")
                         .setRequestType(InternetTool.GET)
+                        .setHeader("Cookie","MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/eapi/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/eapi/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/neapi/clientlog;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/openapi/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/eapi/clientlog;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/weapi/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/eapi/feedback;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/neapi/feedback;;__remember_me=true; Max-Age=1296000; Expires=Wed, 23 Feb 2022 13:50:24 GMT; Path=/;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/wapi/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/api/clientlog;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/api/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/neapi/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/weapi/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/wapi/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/api/clientlog;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/wapi/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/neapi/feedback;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/wapi/clientlog;;MUSIC_R_T=1546269261158; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/weapi/feedback;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/weapi/clientlog;;MUSIC_U=0b0eba60606860f12eb70629773aa72d96dcfc026b2bca4e21ac1691160dac62c84e8a4f4ba4f13ed78b6050a17a35e705925a4e6992f61d07c385928f88e8de; Max-Age=1296000; Expires=Wed, 23 Feb 2022 13:50:24 GMT; Path=/;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/api/feedback;;__csrf=24bb0828e2626c532368c8454e203e57; Max-Age=1296010; Expires=Wed, 23 Feb 2022 13:50:34 GMT; Path=/;;MUSIC_A_T=1546266359140; Max-Age=2147483647; Expires=Sun, 26 Feb 2090 17:04:31 GMT; Path=/openapi/clientlog;;MUSIC_SNS=; Max-Age=0; Expires=Tue, 8 Feb 2022 13:50:24 GMT; Path=/")
                         .setPortPath("/playlist/detail")
                         .setRequestData("id", id)
                         .startRequest(new InternetTool.Back() {
@@ -74,7 +75,7 @@ public class PlaylistSongViewModel extends ViewModel {
                             }
                         });
             }
-          }
+        }
 
     private void getData(String data){
 
@@ -90,7 +91,7 @@ public class PlaylistSongViewModel extends ViewModel {
                             playlistSongsBean.getPlaylist().getTracks().get(i).getAl().getName(),
                             playlistSongsBean.getPlaylist().getTracks().get(i).getAr().get(0).getName(),
                             playlistSongsBean.getPlaylist().getTracks().get(i).getAl().getPicUrl(),playlistSongsBean.getPlaylist().getCoverImgUrl(),
-                            playlistSongsBean.getPlaylist().getName()));
+                            playlistSongsBean.getPlaylist().getName(),playlistSongsBean.getPlaylist().getTracks().get(i).getId()));
             }
             _playlistSong.postValue(list);
     }
@@ -118,7 +119,8 @@ public class PlaylistSongViewModel extends ViewModel {
             recommendSongs.add(new PlaylistSongs(i+1,dayRecommendSongsBean.getData().getDailySongs().get(i).getName(),
                     dayRecommendSongsBean.getData().getDailySongs().get(i).getAl().getName(),
                     dayRecommendSongsBean.getData().getDailySongs().get(i).getAr().get(0).getName(),
-                    dayRecommendSongsBean.getData().getDailySongs().get(i).getAl().getPicUrl(),"DAY"," "));
+                    dayRecommendSongsBean.getData().getDailySongs().get(i).getAl().getPicUrl(),"DAY"," ",
+                    dayRecommendSongsBean.getData().getDailySongs().get(i).getId()));
         }
         _playlistSong.postValue(recommendSongs);
 

@@ -11,10 +11,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,10 +27,13 @@ import com.example.redrock.R;
 import com.example.redrock.adapter.HomePageAdapter;
 import com.example.redrock.base.APP;
 import com.example.redrock.base.BaseActivity;
+import com.example.redrock.fragment.LoginFragment;
 import com.example.redrock.fragment.PageFound;
 import com.example.redrock.fragment.PageMy;
+import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewModel.HomePageMyViewModel;
 import com.example.redrock.viewModel.HomePageViewModel;
+import com.example.redrock.viewModel.LyricsActivityViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
@@ -43,7 +49,19 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private DrawerLayout homePageDrawer;
     private ImageView headPortrait,songPhoto,play;
     private TextView userName,songName,songAu;
+
     public static HomePageActivity HOME_PAGE_ACTIVITY=null;
+
+    private PlayMusicService.PlaySongBinder mBinder;
+
+    private LinearLayout songLyrics;
+    private LyricsActivityViewModel lyricsActivityViewModel;
+    private LyricsActivity lyricsActivity;
+
+    private String songId;
+
+
+    private int angle=0;
 
     private HomePageViewModel homePageViewModel;
 
@@ -74,6 +92,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onChanged(String s) {
                 Glide.with(HomePageActivity.this).load(s).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(songPhoto);
+
             }
         });
         homePageViewModel.songName.observe(this, new Observer<String>() {
@@ -88,11 +107,40 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 songAu.setText(s);
             }
         });
+        homePageViewModel.songId.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                songId=s;
+            }
+        });
+
+
 
         homePageViewModel.pausePlay.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
+
+
                 play.setImageResource(integer);
+
+                if(mBinder!=null) {
+                    if (integer == R.drawable.pause) {
+
+                        mBinder.pause();
+
+
+                    } else {
+                        mBinder.start();
+
+                    }
+                }
+
+            }
+        });
+        homePageViewModel.serviceConnect.observe(this, new Observer<PlayMusicService.PlaySongBinder>() {
+            @Override
+            public void onChanged(PlayMusicService.PlaySongBinder playSongBinder) {
+                mBinder=playSongBinder;
             }
         });
 
@@ -143,9 +191,15 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         }).attach();
 
     }
+
+
+
     private void init(){
         homePage=findViewById(R.id.home_page_vp);
+        homePage.setUserInputEnabled(false);
         homePage.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+        songLyrics=findViewById(R.id.home_page_song_lyrics);
+        songLyrics.setOnClickListener(this);
 
         homeTy=findViewById(R.id.home_page_ty);
 
@@ -195,6 +249,53 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 homePageViewModel.setPauseOrPlay();
 
             }break;
+            case R.id.home_page_song_lyrics:{
+
+                if(!songName.getText().toString().equals("")){
+                    Intent intent=new Intent(this,LyricsActivity.class);
+                    startActivity(intent);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            lyricsActivity=LyricsActivity.LYRICS_ACTIVITY;
+                            lyricsActivityViewModel=ViewModelProviders.of(lyricsActivity).get(LyricsActivityViewModel.class);
+                            lyricsActivityViewModel.getLyrics(songId);
+                            lyricsActivityViewModel.setServiceBinder(mBinder);
+
+
+                            if(mBinder.isPlay()){
+                                lyricsActivityViewModel.setPlay();
+                            }else {
+                                lyricsActivityViewModel.setPause();
+                            }
+                            lyricsActivityViewModel.setName(songName.getText().toString());
+
+
+                        }
+                    }).start();
+                }
+
+
+            }break;
+
+            default:break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
 }

@@ -1,18 +1,18 @@
-package com.example.redrock.AreaConverters;
+package com.example.redrock.areaConverters;
 
 import androidx.room.TypeConverter;
 
-import com.example.redrock.bean.AccountInformationBean;
+import com.example.redrock.bean.LoginBean;
 import com.example.redrock.bean.PlaylistSongsBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class PlaylistSB4 {
     @TypeConverter
-    public static PlaylistSongsBean.PlaylistDTO revert(String data){
+    public static LoginBean.ProfileDTO.ExpertsDTO revert(String data){
         Gson gson=new Gson();
         try {
-            return gson.fromJson(data,new TypeToken<PlaylistSongsBean.PlaylistDTO>(){}.getType());
+            return gson.fromJson(data,new TypeToken<LoginBean.ProfileDTO.ExpertsDTO>(){}.getType());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -20,7 +20,7 @@ public class PlaylistSB4 {
     }
 
     @TypeConverter
-    public static String converter(PlaylistSongsBean.PlaylistDTO data){
+    public static String converter(LoginBean.ProfileDTO.ExpertsDTO data){
 
         return new Gson().toJson(data);
     }

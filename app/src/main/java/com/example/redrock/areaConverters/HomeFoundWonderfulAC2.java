@@ -1,8 +1,7 @@
-package com.example.redrock.AreaConverters;
+package com.example.redrock.areaConverters;
 
 import androidx.room.TypeConverter;
 
-import com.example.redrock.bean.WonderfulRecommendPlaylistBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
