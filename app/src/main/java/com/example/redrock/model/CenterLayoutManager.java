@@ -21,7 +21,7 @@ public class CenterLayoutManager extends LinearLayoutManager {
             // 返回：滑过1px时经历的时间(ms)。
             @Override
             protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-                return 400f / displayMetrics.densityDpi;
+                return 150f / displayMetrics.densityDpi;
 
             }
         };

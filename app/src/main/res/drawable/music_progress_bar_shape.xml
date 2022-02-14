@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置进度条背景 -->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="#7CECECEC"/>
+            <size android:height="13dp"/>
+            <!-- 设置进度条的圆角 -->
+            <corners android:radius="100dp"/>
+        </shape>
+    </item>
+    <!-- 设置进度条的二级进度 -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <solid android:color="@color/dialogFragment_pre"/>
+                <size android:height="13dp"/>
+                <corners android:radius="1.5dp"/>
+            </shape>
+        </clip>
+    </item>
+    <!-- 正常的进度设置 -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <solid android:color="@color/white"/>
+                <size android:height="13dp"/>
+                <corners android:radius="1.5dp"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

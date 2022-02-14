@@ -25,6 +25,8 @@ public class LyricsActivityViewModel extends ViewModel {
     public LiveData<Integer> playPause=_playPause;
     public LiveData<String> musicName=_musicName;
 
+    private MutableLiveData<String> _musicPhoto=new MutableLiveData<>();
+    public LiveData<String> musicPhoto=_musicPhoto;
 
     private boolean isPlay=false;
 
@@ -40,6 +42,11 @@ public class LyricsActivityViewModel extends ViewModel {
                 .setPortPath("/lyric")
                 .setRequestData("id",id)
                 .startRequest(new InternetTool.Back() {
+                    @Override
+                    public void onError() {
+
+                    }
+
                     @Override
                     public void onFinish(String data) {
                             getData(data);
@@ -108,15 +115,12 @@ public class LyricsActivityViewModel extends ViewModel {
 
                     for (int j = 0; j < t2.size(); j++) {
 
-                        if (i == 0 && j == 0) {
-                            list.add(new LyricsBean(ly1[0], ly2[0], t1.get(0).substring(0,5)));
-                        } else {
 
                             if (t2.get(j).equals(t1.get(i))) {
 
                                 list.add(new LyricsBean(ly1[i], ly2[j], t1.get(i).substring(0,5)));
                             }
-                        }
+
 
                     }
 
@@ -166,12 +170,12 @@ public class LyricsActivityViewModel extends ViewModel {
 
     public void setPlay(){
         _playPause.postValue(R.drawable.start);
-        isPlay=true;
+        isPlay=false;
     }
 
     public void setPause(){
         _playPause.postValue(R.drawable.pause);
-        isPlay=false;
+        isPlay=true;
     }
 
 
@@ -179,5 +183,7 @@ public class LyricsActivityViewModel extends ViewModel {
         _musicName.postValue(name);
     }
 
-
+    public void setMusicPhoto(String url) {
+        this._musicPhoto.postValue(url);
+    }
 }

@@ -1,14 +1,23 @@
 package com.example.redrock.service;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+
+import com.example.redrock.R;
+import com.example.redrock.activity.HomePageActivity;
+import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.SongDetail;
 import com.example.redrock.model.InternetTool;
 import com.google.gson.Gson;
@@ -24,7 +33,8 @@ public class PlayMusicService extends Service {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private String pa;
-
+    private NotificationManager manager;
+    private SongDetail song;
 
     public PlayMusicService() {
 
@@ -56,11 +66,17 @@ public class PlayMusicService extends Service {
                             .setRequestData("id", pa)
                             .startRequest(new InternetTool.Back() {
                                 @Override
+                                public void onError() {
+
+                                }
+
+                                @Override
                                 public void onFinish(String data) {
 
                                     Gson gson = new Gson();
-                                    SongDetail song = gson.fromJson(data, new TypeToken<SongDetail>() {
-                                    }.getType());
+                                    song = gson.fromJson(data, new TypeToken<SongDetail>() {}.getType());
+
+
                                     try {
                                         id = sp.getString("id", "");
                                         if (!pa.equals(id) && id != null && !id.equals("") && songPlayer != null) {
@@ -94,6 +110,19 @@ public class PlayMusicService extends Service {
                                     }
                                 }
                             });
+
+                    createNotificationChannel();
+                    Intent intent=new Intent(PlayMusicService.this, HomePageActivity.class);
+
+                    PendingIntent pi=PendingIntent.getActivity(PlayMusicService.this,0,intent,PendingIntent.FLAG_MUTABLE);
+                    NotificationCompat.Builder builder=new NotificationCompat.Builder(PlayMusicService.this,"001")
+                            .setContentTitle("正在播放音乐")
+                            .setSmallIcon(R.drawable.ico)
+                            .setContentIntent(pi)
+                            .setContentText("");
+
+
+                            startForeground(1, builder.build());
                 }
             }).start();
         }
@@ -166,4 +195,15 @@ public class PlayMusicService extends Service {
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel=new NotificationChannel("001","name", NotificationManager.IMPORTANCE_HIGH);
+            channel.setSound(null,null);
+            channel.setImportance(NotificationManager.IMPORTANCE_LOW);
+            manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
+
 }

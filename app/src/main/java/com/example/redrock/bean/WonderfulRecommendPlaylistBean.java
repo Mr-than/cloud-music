@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class WonderfulRecommendPlaylistBean {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     public long id=0;
 
 

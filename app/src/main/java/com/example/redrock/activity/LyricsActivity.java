@@ -22,6 +22,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.redrock.R;
 import com.example.redrock.adapter.LyricsAdapter;
 import com.example.redrock.bean.LyricsBean;
@@ -32,13 +35,14 @@ import com.example.redrock.viewModel.LyricsActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class LyricsActivity extends AppCompatActivity {
 
     private TextView progress1,progress2,progress3,progress4,musicName;
 
-    private ImageView playPause;
+    private ImageView playPause,musicPhoto;
 
     private SeekBar seekBar;
 
@@ -58,10 +62,20 @@ public class LyricsActivity extends AppCompatActivity {
     private List<LyricsBean> lyricsList;
 
     private boolean touch=true;
-    private int firstItemPosition=0;
+    private int firstItemPosition;
 
     private String ft;
     private String tf;
+
+    private String sTime;
+
+    private int p;
+
+    private int firstLy;
+
+    private float ag=0;
+
+    private boolean isAg=false;
 
 
 
@@ -92,9 +106,11 @@ public class LyricsActivity extends AppCompatActivity {
                  public void run() {
 
               int rvHeight=recyclerView.getHeight()/2;
-              int rvItemHeight=dpToPx(LyricsActivity.this,80);
+              int rvItemHeight=dpToPx(LyricsActivity.this,70);
 
               int emptyItemCount=rvHeight/rvItemHeight;
+
+              firstLy=emptyItemCount;
 
               for (int i = 0; i < emptyItemCount; i++) {
                   lyricsList.add(new LyricsBean("","",""));
@@ -114,14 +130,7 @@ public class LyricsActivity extends AppCompatActivity {
         });
 
 
-        lyricsActivityViewModel.serviceConnect.observe(this, new Observer<PlayMusicService.PlaySongBinder>() {
-            @Override
-            public void onChanged(PlayMusicService.PlaySongBinder playSongBinder) {
-                mBinder=playSongBinder;
-                setSeekBar();
 
-            }
-        });
 
         lyricsActivityViewModel.playPause.observe(this, new Observer<Integer>() {
             @Override
@@ -131,19 +140,25 @@ public class LyricsActivity extends AppCompatActivity {
 
                     mBinder.start();
                     homePageViewModel.setPlay();
+
+                    if(!isAg) {
+                        setAg();
+                    }
+
                 }else {
 
                     mBinder.pause();
                     homePageViewModel.setPause();
+
+                    isAg=false;
 
                     if(tf!=null&&ft!=null){
                         progress1.setText(tf);
                         progress2.setText(ft);
                     }
 
+
                 }
-
-
             }
         });
 
@@ -154,18 +169,32 @@ public class LyricsActivity extends AppCompatActivity {
             }
         });
 
+        lyricsActivityViewModel.musicPhoto.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Glide.with(LyricsActivity.this).load(s).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(musicPhoto);
+
+                if(!isAg){
+                    setAg();
+                }
+
+            }
+        });
+
     }
 
     private void intView() {
 
         lyricsActivityViewModel= ViewModelProviders.of(this).get(LyricsActivityViewModel.class);
 
-
+        musicPhoto=findViewById(R.id.lyrics_toolbar_imageview);
 
         homePageActivity=HomePageActivity.HOME_PAGE_ACTIVITY;
         homePageViewModel=ViewModelProviders.of(homePageActivity).get(HomePageViewModel.class);
 
         playPause=findViewById(R.id.lyrics_play_pause);
+
+
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,30 +203,45 @@ public class LyricsActivity extends AppCompatActivity {
             }
         });
 
+
+
         recyclerView=findViewById(R.id.Lyrics_rv);
 
         LYRICS_ACTIVITY=this;
 
 
+        lyricsActivityViewModel.serviceConnect.observe(this, new Observer<PlayMusicService.PlaySongBinder>() {
+            @Override
+            public void onChanged(PlayMusicService.PlaySongBinder playSongBinder) {
+                mBinder=playSongBinder;
+                setSeekBar();
+
+            }
+        });
 
 
         toolbar=findViewById(R.id.Lyrics_page_toolbar);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+
+
         seekBar=findViewById(R.id.music_seekbar);
 
-        progress1=findViewById(R.id.music_seekbar_time_1);
-        progress1.setText("00");
-        progress2=findViewById(R.id.music_seekbar_time_2);
-        progress2.setText("00");
-        progress3=findViewById(R.id.music_seekbar_time_3);
-        progress3.setText("00");
-        progress4=findViewById(R.id.music_seekbar_time_4);
-        progress4.setText("00");
+        progress1 = findViewById(R.id.music_seekbar_time_1);
+
+        progress2 = findViewById(R.id.music_seekbar_time_2);
+
+        progress3 = findViewById(R.id.music_seekbar_time_3);
+
+        progress4 = findViewById(R.id.music_seekbar_time_4);
+
+
+
         musicName=findViewById(R.id.lyrics_toolbar_textView);
 
 
@@ -270,10 +314,11 @@ public class LyricsActivity extends AppCompatActivity {
                             if(seekBar.getProgress()>=10) {
                                 progress4.setText(String.valueOf(ma));
                             }else {
-                                progress4.setText("0"+ma);
+                                progress4.setText(String.valueOf(ma));
                             }
                         }
 
+                        sTime=progress3.getText().toString()+":"+progress4.getText().toString();
 
                     }
                 });
@@ -347,6 +392,24 @@ public class LyricsActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                touch=false;
+                LyricsAdapter.ViewHolder holder1=(LyricsAdapter.ViewHolder)recyclerView.findViewHolderForLayoutPosition(p);
+                if(holder1!=null){
+                    holder1.lyrics1.setTextColor(Color.parseColor("#878787"));
+                    holder1.lyrics2.setTextColor(Color.parseColor("#707070"));
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
+                        touch=true;
+                    }
+                }).start();
+
             }
 
             @Override
@@ -360,16 +423,21 @@ public class LyricsActivity extends AppCompatActivity {
     public void aaa(String time){
 
         for (int i=0; i < lyricsList.size(); i++) {
-            if(lyricsList.get(i).getTime().equals(time)){
+            if(lyricsList.get(i).getTime().equals(time)&&i!=firstLy){
                 setLyrics(i);
             }
-        }
 
+            if(time.equals(sTime)){
+               lyricsActivityViewModel.setPlay();
+               lyricsActivityViewModel.setPause();
+            }
+        }
     }
 
 
     public void setLyrics(int position){
 
+        this.p=position;
 
         recyclerView.postDelayed(new Runnable() {
             @Override
@@ -392,14 +460,13 @@ public class LyricsActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    Thread.sleep(3000);
+                                    Thread.sleep(1000);
                                 } catch (InterruptedException interruptedException) {
                                     interruptedException.printStackTrace();
                                 }
                                 touch=true;
                             }
                         }).start();
-
                         return false;
                     }
 
@@ -423,8 +490,9 @@ public class LyricsActivity extends AppCompatActivity {
 
                  if(touch) {
 
-                     if(firstItemPosition-position>10||firstItemPosition-position<-10){
+                     if(firstItemPosition-position>3*firstLy||firstItemPosition-position<-3*firstLy){
                          recyclerView.scrollToPosition(position);
+                         recyclerView.scrollBy(0,-50);
                      }else {
                          recyclerView.smoothScrollToPosition(position);
                      }
@@ -445,7 +513,7 @@ public class LyricsActivity extends AppCompatActivity {
 
 
             }
-        },200);
+        },250);
 
     }
 
@@ -453,4 +521,56 @@ public class LyricsActivity extends AppCompatActivity {
     public static int dpToPx(Context ctx, float dp){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ctx.getResources().getDisplayMetrics());
     }
+
+
+
+
+    private void setAg(){
+        isAg=true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                while (true) {
+
+                    if(!mBinder.isPlay()){
+                        break;
+                    }
+
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            musicPhoto.setPivotX(musicPhoto.getWidth() / 2);
+                            musicPhoto.setPivotY(musicPhoto.getHeight() / 2);//支点在图片中心
+                            musicPhoto.setRotation(ag);
+
+                            ag+=0.1;
+
+                            if(ag>360){
+                                ag=0;
+                            }
+
+                        }
+                    });
+
+                }
+
+            }
+        }).start();
+    }
+
 }

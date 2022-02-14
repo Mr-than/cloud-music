@@ -6,6 +6,7 @@ import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.base.APP;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -115,11 +116,18 @@ public class InternetTool {
                     if(InternetTool.this.headerKey!=null&&InternetTool.this.headerContent!=null){
                         connection.setRequestProperty(headerKey,headerContent);
                     }
-                    connection.setDoInput(true);
-                    connection.connect();
 
+
+                    connection.setDoInput(true);
+                    InputStream in=null;
+                    try {
+                        in = connection.getInputStream();
+                    }catch (Exception e){
+                        back.onError();
+                        e.printStackTrace();
+                    }
                     StringBuilder stringBuilder=new StringBuilder();
-                    InputStream in=connection.getInputStream();
+
                     BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(in));
                     String line=null;
 
@@ -152,6 +160,7 @@ public class InternetTool {
 
 
     public interface Back{
+        public void onError();
         public void onFinish(String data);
     }
 }

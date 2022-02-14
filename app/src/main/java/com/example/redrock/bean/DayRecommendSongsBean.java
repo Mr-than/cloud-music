@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class DayRecommendSongsBean {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     public long id=0;
 
 

@@ -133,6 +133,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                                     }
                                     lyricsActivityViewModel.setServiceBinder(playSongBinder);
                                     lyricsActivityViewModel.setName(songs.getName());
+                                    lyricsActivityViewModel.setMusicPhoto(songs.getPhoto());
                                 }
 
                     }).start();

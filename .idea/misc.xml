@@ -9,6 +9,7 @@
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/dialogfragment_phone.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/edit_cursor_color.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/ic_launcher_background.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/music_progress_bar_shape.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_shap.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/phone_button_shape.xml" value="0.24305555555555555" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/qq_ima_unselector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/recommend_playlist.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/recommend_playlist_shape_2.xml" value="0.24305555555555555" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/sb_bar.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/search_box_home_page.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/selector_btn.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/side_bar_shape.xml" value="0.20462962962962963" />
@@ -33,6 +35,7 @@
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/drawable/wy_ima_selector.xml" value="0.24305555555555555" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_home_page.xml" value="0.26621847886098404" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_home_page2.xml" value="0.22870370370370371" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_lyrics.xml" value="0.20168066580377575" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_main.xml" value="0.25729166666666664" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/activity_playlist_song.xml" value="0.22870370370370371" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/countryitem.xml" value="0.5405041843541191" />
@@ -42,7 +45,8 @@
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/fragment_login.xml" value="0.26621847886098404" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/fragment_loginphone.xml" value="0.26621847886098404" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/fragment_recommendsong.xml" value="0.22870370370370371" />
-        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/page_found_fragment.xml" value="0.26621847886098404" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/lyrics_item.xml" value="0.4571917808219178" />
+        <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/page_found_fragment.xml" value="0.176" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/page_my_fragment.xml" value="0.22870370370370371" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/phone_password.xml" value="0.22870370370370371" />
         <entry key="..\:/Android's project/RedRockAssessmentOfWinterVacation/Assessment-of-winter-vacation/app/src/main/res/layout/playlist_song_item.xml" value="0.20168066580377575" />

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 public class CreatePlaylistBean {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     public long id=0;
 
 

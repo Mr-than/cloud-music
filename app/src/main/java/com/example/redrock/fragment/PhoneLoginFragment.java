@@ -25,7 +25,9 @@ import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.activity.MainActivity;
 import com.example.redrock.base.APP;
 import com.example.redrock.dialog.LoginPhoneDialogFragment;
+import com.example.redrock.viewModel.HomePageViewModel;
 import com.example.redrock.viewModel.LoginPhoneViewModel;
+import com.example.redrock.viewModel.MainActivityViewModel;
 
 public class PhoneLoginFragment extends Fragment implements View.OnClickListener {
     //下面这个变量获取了装载国家码和旁边三角图片的父布局
@@ -47,12 +49,16 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
 
     private ImageView topLeft;
 
+    private MainActivityViewModel mainActivityViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        view=inflater.inflate(R.layout.fragment_loginphone,container,false);
        mainActivity=(MainActivity)getActivity();
+
+
+
         if (mainActivity != null) {
             mainActivity.isBack=true;
         }
@@ -60,11 +66,19 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
         init();
 
 
+
+
         return view;
     }
 
 
     private void init() {
+
+        if(getActivity()!=null) {
+            mainActivityViewModel = ViewModelProviders.of(mainActivity).get(MainActivityViewModel.class);
+        }
+
+
         isOpen=false;
         areaSelectionButton=view.findViewById(R.id.but_areaSelection);
         areaSelectionButton.setOnClickListener(this);
@@ -124,6 +138,9 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.replace(R.id.fra_global, fragment);
                         transaction.commit();
+
+                        mainActivityViewModel.setPhone(phoneNumber.getText().toString());
+
                     }
                 }
             }break;

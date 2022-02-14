@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -54,10 +56,16 @@ public class PlaylistSongActivity extends BaseActivity {
     private String month;
     private String day;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_song);
+
+        sp=getSharedPreferences("isSongRefresh",MODE_PRIVATE);
+        editor=sp.edit();
 
 
         dialog=new ProgressDialog(PlaylistSongActivity.this);
@@ -75,26 +83,40 @@ public class PlaylistSongActivity extends BaseActivity {
                 }
 
 
+                playlistSongViewModel.searchSong.observe(this, new Observer<List<PlaylistSongs>>() {
+                    @Override
+                    public void onChanged(List<PlaylistSongs> playlistSongs) {
+                        LinearLayoutManager manager = new LinearLayoutManager(PlaylistSongActivity.this);
+                        PlaylistSongAdapter adapter = new PlaylistSongAdapter(playlistSongs, HomePageActivity.HOME_PAGE_ACTIVITY);
+                        recyclerView.setLayoutManager(manager);
+                        recyclerView.setAdapter(adapter);
+                        dialog.cancel();
+                    }
+                });
+
+
             playlistSongViewModel.playlistSong.observe(this, new Observer<List<PlaylistSongs>>() {
                 @Override
                 public void onChanged(List<PlaylistSongs> playlistSongs) {
+                    if (playlistSongs.size() > 0) {
 
-                    LinearLayoutManager manager=new LinearLayoutManager(PlaylistSongActivity.this);
-                    PlaylistSongAdapter adapter=new PlaylistSongAdapter(playlistSongs,HomePageActivity.HOME_PAGE_ACTIVITY);
-                    recyclerView.setLayoutManager(manager);
-                    recyclerView.setAdapter(adapter);
+                        LinearLayoutManager manager = new LinearLayoutManager(PlaylistSongActivity.this);
+                        PlaylistSongAdapter adapter = new PlaylistSongAdapter(playlistSongs, HomePageActivity.HOME_PAGE_ACTIVITY);
+                        recyclerView.setLayoutManager(manager);
+                        recyclerView.setAdapter(adapter);
 
-                    if(playlistSongs.get(0).getPlaylistPhoto().equals("DAY")){
-                        Glide.with(PlaylistSongActivity.this).load(R.drawable.dayplaylistphoto).transform(new RoundedCorners(25)).into(playlistPhoto);
-                        playlistName.setText(" ");
-                        setToolbarTitle("每日推荐",day+"/"+month);
-                    }else {
-                        Glide.with(PlaylistSongActivity.this).load(playlistSongs.get(0).getPlaylistPhoto()).transform(new RoundedCorners(25)).into(playlistPhoto);
-                        playlistName.setText(playlistSongs.get(0).getPlaylistName());
-                        setToolbarTitle(playlistSongs.get(0).getPlaylistName()," ");
+                        if (playlistSongs.get(0).getPlaylistPhoto().equals("DAY")) {
+                            Glide.with(PlaylistSongActivity.this).load(R.drawable.dayplaylistphoto).transform(new RoundedCorners(25)).into(playlistPhoto);
+                            playlistName.setText(" ");
+                            setToolbarTitle("每日推荐", day + "/" + month);
+                        } else {
+                            Glide.with(PlaylistSongActivity.this).load(playlistSongs.get(0).getPlaylistPhoto()).transform(new RoundedCorners(25)).into(playlistPhoto);
+                            playlistName.setText(playlistSongs.get(0).getPlaylistName());
+                            setToolbarTitle(playlistSongs.get(0).getPlaylistName(), " ");
+                        }
+
+                        dialog.cancel();
                     }
-
-                    dialog.cancel();
                 }
             });
 
@@ -105,8 +127,17 @@ public class PlaylistSongActivity extends BaseActivity {
 
         toolbarLayout=findViewById(R.id.playlist_song_activity_ctl);
         playlistSongViewModel= ViewModelProviders.of(this).get(PlaylistSongViewModel.class);
+        playlistSongViewModel.setSp(getSharedPreferences("re",MODE_PRIVATE));
+
+        if(sp.getString("refresh_3","").equals("refresh")){
+            playlistSongViewModel.getDayRecommendFromIn();
+            editor.putString("refresh_3","");
+            editor.apply();
+        }
+
+
         recyclerView=findViewById(R.id.playlist_song_rv);
-        List<PlaylistSongs> list=new ArrayList<>();
+
 
         appBarLayout=findViewById(R.id.playlist_song_activity_ab);
 
@@ -115,13 +146,13 @@ public class PlaylistSongActivity extends BaseActivity {
 
         toolbar=findViewById(R.id.playlist_song_toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("");
 
         calendars=Calendar.getInstance();
         calendars.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         month = String.valueOf(calendars.get(Calendar.MONTH) + 1);
         day = String.valueOf(calendars.get(Calendar.DATE));
-
-
     }
 
 

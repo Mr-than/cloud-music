@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -28,12 +29,15 @@ import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.adapter.DayRecommendPlaylistAdapter;
 import com.example.redrock.base.APP;
+import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.DayRecommendBean;
+import com.example.redrock.room.LoginBeanDao;
 import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewModel.HomePageFoundViewModel;
 import com.example.redrock.viewModel.HomePageViewModel;
 import com.example.redrock.viewModel.PlaylistSongViewModel;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -59,6 +63,16 @@ public class PageFound extends Fragment implements View.OnClickListener{
     private PlayMusicService.PlaySongBinder binder;
     private ServiceConnection connection;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
+    private SharedPreferences update;
+    private SharedPreferences.Editor upe;
+
+    private BigInteger bigInteger;
+    private BigInteger updateT;
+
+
     private boolean isBind=false;
 
     public static final String DAY_RECOMMEND_SONGS="DAY_RECOMMEND";
@@ -69,6 +83,45 @@ public class PageFound extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.page_found_fragment,container,false);
         initView();
+
+        update=getActivity().getSharedPreferences("updateTime",BaseActivity.MODE_PRIVATE);
+        upe=update.edit();
+
+        bigInteger=new BigInteger(String.valueOf(System.currentTimeMillis()));
+
+        if((update.getString("time","")!=null&&update.getString("time","").length()>0)){
+            updateT=new BigInteger(update.getString("time",""));
+            long time=Long.parseLong(bigInteger.subtract(updateT).toString());
+            if(time>=3600000){
+                homePageFoundViewModel.getRecommendPlaylistFromIn();
+                homePageFoundViewModel.getRecommendSongFromIn();
+                homePageFoundViewModel.getWonderfulPlaylistFromIn();
+                upe.putString("time",String.valueOf(System.currentTimeMillis()));
+                upe.apply();
+            }
+        }
+
+
+
+        homePageViewModel.dao.observe(homePageActivity, new Observer<LoginBeanDao>() {
+            @Override
+            public void onChanged(LoginBeanDao loginBeanDao) {
+                homePageFoundViewModel.setLoginBeanDao(loginBeanDao);
+
+
+                    homePageFoundViewModel.getRecommendPlaylistFromIn();
+                    homePageFoundViewModel.getRecommendSongFromIn();
+                    homePageFoundViewModel.getWonderfulPlaylistFromIn();
+                    editor.putString("refresh_1","");
+                    editor.apply();
+                    upe.putString("time",String.valueOf(System.currentTimeMillis()));
+                    upe.apply();
+            }
+        });
+
+        homePageFoundViewModel.getWonderfulPlaylist();
+        homePageFoundViewModel.getRecommendPlaylists();
+        homePageFoundViewModel.getDayRecommendSongData();
 
        connection=new ServiceConnection() {
            @Override
@@ -98,96 +151,114 @@ public class PageFound extends Fragment implements View.OnClickListener{
         number=random.nextInt(47);
 
 
-        homePageFoundViewModel= ViewModelProviders.of(this).get(HomePageFoundViewModel.class);
-        homePageFoundViewModel.wonderfulPlaylistName.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> s) {
+
+
+
+
+
+
+            homePageFoundViewModel.wonderfulPlaylistName.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> s) {
                     wonderfulName1.setText(s.get(number));
-                    wonderfulName2.setText(s.get(number+1));
-                    wonderfulName3.setText(s.get(number+2));
-            }
-        });
-        homePageFoundViewModel.getWonderfulPlaylist();
-        homePageFoundViewModel.wonderfulPlaylistPhoto.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> photo) {
-                Glide.with(PageFound.this).load(photo.get(number)).transform(new RoundedCorners(25)).into(wonderfulPhoto1);
-                Glide.with(PageFound.this).load(photo.get(number+1)).transform(new RoundedCorners(25)).into(wonderfulPhoto2);
-                Glide.with(PageFound.this).load(photo.get(number+2)).transform(new RoundedCorners(25)).into(wonderfulPhoto3);
-            }
-        });
-        homePageFoundViewModel.wonderfulPlaylistId.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                if(wonderfulPlaylistIds.size()>0){
-                    wonderfulPlaylistIds.clear();
+                    wonderfulName2.setText(s.get(number + 1));
+                    wonderfulName3.setText(s.get(number + 2));
                 }
+            });
 
-                wonderfulPlaylistIds.add(strings.get(number));
-                wonderfulPlaylistIds.add(strings.get(number+1));
-                wonderfulPlaylistIds.add(strings.get(number+2));
-            }
-        });
+            homePageFoundViewModel.wonderfulPlaylistPhoto.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> photo) {
+                    Glide.with(PageFound.this).load(photo.get(number)).transform(new RoundedCorners(25)).into(wonderfulPhoto1);
+                    Glide.with(PageFound.this).load(photo.get(number + 1)).transform(new RoundedCorners(25)).into(wonderfulPhoto2);
+                    Glide.with(PageFound.this).load(photo.get(number + 2)).transform(new RoundedCorners(25)).into(wonderfulPhoto3);
+                }
+            });
+            homePageFoundViewModel.wonderfulPlaylistId.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    if (wonderfulPlaylistIds.size() > 0) {
+                        wonderfulPlaylistIds.clear();
+                    }
+
+                    wonderfulPlaylistIds.add(strings.get(number));
+                    wonderfulPlaylistIds.add(strings.get(number + 1));
+                    wonderfulPlaylistIds.add(strings.get(number + 2));
+                }
+            });
 
 
 
-        homePageFoundViewModel.getRecommendPlaylists();
-        homePageFoundViewModel.recommendPlaylist.observe(requireActivity(), new Observer<List<DayRecommendBean>>() {
-            @Override
-            public void onChanged(List<DayRecommendBean> dayRecommendBeans) {
-                LinearLayoutManager manager=new LinearLayoutManager(APP.getContext());
-                manager.setOrientation(RecyclerView.HORIZONTAL);
-                recommendPlaylist.setLayoutManager(manager);
-                recommendPlaylist.setAdapter(new DayRecommendPlaylistAdapter(dayRecommendBeans));
+            homePageFoundViewModel.recommendPlaylist.observe(requireActivity(), new Observer<List<DayRecommendBean>>() {
+                @Override
+                public void onChanged(List<DayRecommendBean> dayRecommendBeans) {
+                    LinearLayoutManager manager = new LinearLayoutManager(APP.getContext());
+                    manager.setOrientation(RecyclerView.HORIZONTAL);
+                    recommendPlaylist.setLayoutManager(manager);
+                    recommendPlaylist.setAdapter(new DayRecommendPlaylistAdapter(dayRecommendBeans));
 
-            }
-        });
+                }
+            });
 
-        homePageFoundViewModel.getDayRecommendSongData();
-        homePageFoundViewModel.recommendSongName.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                recommendSongName1.setText(strings.get(0));
-                name1=strings.get(0);
-                recommendSongName2.setText(strings.get(1));
-                name2=strings.get(1);
-                recommendSongName3.setText(strings.get(2));
-                name3=strings.get(2);
-            }
-        });
-        homePageFoundViewModel.recommendSongPhoto.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                Glide.with(PageFound.this).load(strings.get(0)).transform(new RoundedCorners(25)).into(recommendSongPhoto1);
-                photo1=strings.get(0);
-                Glide.with(PageFound.this).load(strings.get(1)).transform(new RoundedCorners(25)).into(recommendSongPhoto2);
-                photo2=strings.get(1);
-                Glide.with(PageFound.this).load(strings.get(2)).transform(new RoundedCorners(25)).into(recommendSongPhoto3);
-                photo3=strings.get(2);
-            }
-        });
-        homePageFoundViewModel.recommendSongAu.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                au1=strings.get(0);
-                au2=strings.get(1);
-                au3=strings.get(2);
-            }
-        });
-        homePageFoundViewModel.recommendSongId.observe(requireActivity(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                id1=strings.get(0);
-                id2=strings.get(1);
-                id3=strings.get(2);
-            }
-        });
+
+            homePageFoundViewModel.recommendSongName.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    if (strings.size() > 0) {
+                        recommendSongName1.setText(strings.get(0));
+                        name1 = strings.get(0);
+                        recommendSongName2.setText(strings.get(1));
+                        name2 = strings.get(1);
+                        recommendSongName3.setText(strings.get(2));
+                        name3 = strings.get(2);
+                    }
+                }
+            });
+            homePageFoundViewModel.recommendSongPhoto.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    if (strings.size() > 0) {
+                        Glide.with(PageFound.this).load(strings.get(0)).transform(new RoundedCorners(25)).into(recommendSongPhoto1);
+                        photo1 = strings.get(0);
+                        Glide.with(PageFound.this).load(strings.get(1)).transform(new RoundedCorners(25)).into(recommendSongPhoto2);
+                        photo2 = strings.get(1);
+                        Glide.with(PageFound.this).load(strings.get(2)).transform(new RoundedCorners(25)).into(recommendSongPhoto3);
+                        photo3 = strings.get(2);
+                    }
+                }
+            });
+            homePageFoundViewModel.recommendSongAu.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    if (strings.size() > 0) {
+                        au1 = strings.get(0);
+                        au2 = strings.get(1);
+                        au3 = strings.get(2);
+                    }
+                }
+            });
+            homePageFoundViewModel.recommendSongId.observe(requireActivity(), new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    if (strings.size() > 0) {
+                        id1 = strings.get(0);
+                        id2 = strings.get(1);
+                        id3 = strings.get(2);
+                    }
+                }
+            });
 
 
         return view;
     }
 
     private void initView(){
+
+
+
+        sp=getActivity().getSharedPreferences("isFoundRefresh",BaseActivity.MODE_PRIVATE);
+        editor=sp.edit();
+
         isService=false;
         homePageActivity=(HomePageActivity)getActivity();
         wonderfulName1=view.findViewById(R.id.home_page_found_wonderful_name_1);
@@ -223,11 +294,13 @@ public class PageFound extends Fragment implements View.OnClickListener{
 
         dayMusic=view.findViewById(R.id.day_music);
         dayMusic.setOnClickListener(this);
+        homePageFoundViewModel= ViewModelProviders.of(this).get(HomePageFoundViewModel.class);
         if(getActivity()!=null) {
             homePageViewModel = ViewModelProviders.of(homePageActivity).get(HomePageViewModel.class);
+
         }
 
-
+        homePageFoundViewModel.setSp(getActivity().getSharedPreferences("found", BaseActivity.MODE_PRIVATE));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.redrock.bean;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,6 +9,9 @@ import java.util.List;
 
 @Entity
 public class LoginBean {
+
+    @PrimaryKey
+    public long a=0;
 
 
     private int loginType;
@@ -16,6 +21,9 @@ public class LoginBean {
     private ProfileDTO profile;
     private List<BindingsDTO> bindings;
     private String cookie;
+
+
+
 
     public int getLoginType() {
         return loginType;
@@ -74,21 +82,21 @@ public class LoginBean {
     }
 
     public static class AccountDTO {
-        @PrimaryKey
+
         private String id;
 
         private String userName;
         private int type;
         private int status;
         private int whitelistAuthority;
-        private long createTime;
+        private String createTime;
         private String salt;
         private int tokenVersion;
         private int ban;
         private int baoyueVersion;
         private int donateVersion;
         private int vipType;
-        private long viptypeVersion;
+        private String viptypeVersion;
         private boolean anonimousUser;
         private boolean uninitialized;
 
@@ -132,11 +140,11 @@ public class LoginBean {
             this.whitelistAuthority = whitelistAuthority;
         }
 
-        public long getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(long createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 
@@ -188,11 +196,11 @@ public class LoginBean {
             this.vipType = vipType;
         }
 
-        public long getViptypeVersion() {
+        public String getViptypeVersion() {
             return viptypeVersion;
         }
 
-        public void setViptypeVersion(long viptypeVersion) {
+        public void setViptypeVersion(String viptypeVersion) {
             this.viptypeVersion = viptypeVersion;
         }
 
@@ -217,21 +225,21 @@ public class LoginBean {
         private int gender;
         private int vipType;
         private int accountStatus;
-        private long avatarImgId;
+        private String avatarImgId;
         private String nickname;
         private int city;
         private String avatarUrl;
         private boolean defaultAvatar;
         private int province;
-        private long backgroundImgId;
-        private long birthday;
+        private String backgroundImgId;
+        private String birthday;
         private boolean mutual;
         private Object remarkName;
         private int authStatus;
         private int djStatus;
         private Object expertTags;
         private ExpertsDTO experts;
-        private int userId;
+        private String userId;
         private int userType;
         private boolean followed;
         private String backgroundUrl;
@@ -273,11 +281,11 @@ public class LoginBean {
             this.accountStatus = accountStatus;
         }
 
-        public long getAvatarImgId() {
+        public String getAvatarImgId() {
             return avatarImgId;
         }
 
-        public void setAvatarImgId(long avatarImgId) {
+        public void setAvatarImgId(String avatarImgId) {
             this.avatarImgId = avatarImgId;
         }
 
@@ -321,19 +329,19 @@ public class LoginBean {
             this.province = province;
         }
 
-        public long getBackgroundImgId() {
+        public String getBackgroundImgId() {
             return backgroundImgId;
         }
 
-        public void setBackgroundImgId(long backgroundImgId) {
+        public void setBackgroundImgId(String backgroundImgId) {
             this.backgroundImgId = backgroundImgId;
         }
 
-        public long getBirthday() {
+        public String getBirthday() {
             return birthday;
         }
 
-        public void setBirthday(long birthday) {
+        public void setBirthday(String birthday) {
             this.birthday = birthday;
         }
 
@@ -385,11 +393,11 @@ public class LoginBean {
             this.experts = experts;
         }
 
-        public int getUserId() {
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
 
@@ -528,12 +536,12 @@ public class LoginBean {
     public static class BindingsDTO {
         private String tokenJsonStr;
         private int expiresIn;
-        private long bindingTime;
+        private String bindingTime;
         private int refreshTime;
         private String url;
-        private int userId;
+        private String userId;
         private boolean expired;
-        private long id;
+        private String id;
         private int type;
 
         public String getTokenJsonStr() {
@@ -552,11 +560,11 @@ public class LoginBean {
             this.expiresIn = expiresIn;
         }
 
-        public long getBindingTime() {
+        public String getBindingTime() {
             return bindingTime;
         }
 
-        public void setBindingTime(long bindingTime) {
+        public void setBindingTime(String bindingTime) {
             this.bindingTime = bindingTime;
         }
 
@@ -576,11 +584,11 @@ public class LoginBean {
             this.url = url;
         }
 
-        public int getUserId() {
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
 
@@ -592,11 +600,11 @@ public class LoginBean {
             this.expired = expired;
         }
 
-        public long getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(long id) {
+        public void setId(String id) {
             this.id = id;
         }
 

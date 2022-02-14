@@ -1,5 +1,6 @@
 package com.example.redrock.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.redrock.R;
 import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.adapter.CreatePlaylistAdapter;
+import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.CreatePlaylist;
 import com.example.redrock.viewModel.HomePageFoundViewModel;
 import com.example.redrock.viewModel.HomePageMyViewModel;
@@ -38,12 +40,32 @@ public class PageMy extends Fragment {
     private ImageView headPortrait;
     private TextView userName;
     private CardView cardView;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.page_my_fragment,container,false);
         init();
+
+        if(sp.getString("refresh_2","").equals("refresh")){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    homePageMyViewModel.getPersonalPlaylistFromIn();
+                    editor.putString("refresh","");
+                    editor.apply();
+                }
+            }).start();
+
+        }
+
 
         homePageMyViewModel.getUserInformationData();
         homePageMyViewModel.headPortrait.observe(requireActivity(), new Observer<String>() {
@@ -77,8 +99,13 @@ public class PageMy extends Fragment {
 
     private void init(){
 
+        sp=getActivity().getSharedPreferences("isMyRefresh",BaseActivity.MODE_PRIVATE);
+        editor=sp.edit();
+
         createPlaylistRv=view.findViewById(R.id.create_playlist_rv);
         homePageMyViewModel= ViewModelProviders.of(this).get(HomePageMyViewModel.class);
+        homePageMyViewModel.setSp(getActivity().getSharedPreferences("my", BaseActivity.MODE_PRIVATE));
+
         homePageMyViewModel.setHomePageViewModel((HomePageActivity) getActivity());
 
         headPortrait=view.findViewById(R.id.my_user_head_portrait);

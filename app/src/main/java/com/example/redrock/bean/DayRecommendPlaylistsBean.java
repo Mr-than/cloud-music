@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 public class DayRecommendPlaylistsBean {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     public long id=0;
 
 

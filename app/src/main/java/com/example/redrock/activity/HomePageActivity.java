@@ -13,12 +13,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -34,10 +42,12 @@ import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewModel.HomePageMyViewModel;
 import com.example.redrock.viewModel.HomePageViewModel;
 import com.example.redrock.viewModel.LyricsActivityViewModel;
+import com.example.redrock.viewModel.PlaylistSongViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomePageActivity extends BaseActivity implements View.OnClickListener{
 
@@ -49,6 +59,10 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private DrawerLayout homePageDrawer;
     private ImageView headPortrait,songPhoto,play;
     private TextView userName,songName,songAu;
+    private String photoUrl;
+    private EditText search;
+
+    private Button logOut;
 
     public static HomePageActivity HOME_PAGE_ACTIVITY=null;
 
@@ -65,16 +79,39 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     private HomePageViewModel homePageViewModel;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
+    private boolean isAg=false;
+    private float ag=0f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
         init();
+
+        DrawerLayout.SimpleDrawerListener mSimpleDrawerListener = new DrawerLayout.SimpleDrawerListener(){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                //档DrawerLayout打开时，让整体DrawerLayout布局可以响应点击事件
+                drawerView.setClickable(true);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        homePageDrawer.addDrawerListener(mSimpleDrawerListener);
+
+
         HOME_PAGE_ACTIVITY=this;
         play.setVisibility(View.GONE);
 
-        homePageViewModel.getUserInformationData();
+        homePageViewModel.getData();
         homePageViewModel.headPortrait.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -92,7 +129,10 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onChanged(String s) {
                 Glide.with(HomePageActivity.this).load(s).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(songPhoto);
-
+                photoUrl=s;
+                if(!isAg){
+                    setAg();
+                }
             }
         });
         homePageViewModel.songName.observe(this, new Observer<String>() {
@@ -127,11 +167,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                     if (integer == R.drawable.pause) {
 
                         mBinder.pause();
-
+                        isAg=false;
 
                     } else {
                         mBinder.start();
-
+                        if(!isAg){
+                            setAg();
+                        }
                     }
                 }
 
@@ -195,6 +237,50 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
 
     private void init(){
+
+        search=findViewById(R.id.home_page_search_edit);
+
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            if(search.getText().toString()!=null&&search.getText().toString().length()>0) {
+                                startActivity(new Intent(HomePageActivity.this,PlaylistSongActivity.class));
+
+
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                PlaylistSongViewModel playlistSongViewModel=ViewModelProviders.of(PlaylistSongActivity.PLAYLIST_ACTIVITY).get(PlaylistSongViewModel.class);
+                                playlistSongViewModel.getSearchSong(search.getText().toString());
+                            }else {
+
+                            }
+                        }
+                    }).start();
+
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+        sp=getSharedPreferences("Automatic_login",MODE_PRIVATE);
+        editor=sp.edit();
+
+        logOut=findViewById(R.id.Log_out);
+        logOut.setOnClickListener(this);
+
         homePage=findViewById(R.id.home_page_vp);
         homePage.setUserInputEnabled(false);
         homePage.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -215,7 +301,9 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
         homePageDrawer=findViewById(R.id.home_page_drawerLayout);
         homePageToolbar=findViewById(R.id.home_page_toolbar);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, homePageDrawer, homePageToolbar, 0, 0);
+
         homePageDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -277,7 +365,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                                 lyricsActivityViewModel.setPause();
                             }
                             lyricsActivityViewModel.setName(songName.getText().toString());
-
+                            lyricsActivityViewModel.setMusicPhoto(photoUrl);
 
                         }
                     }).start();
@@ -285,7 +373,12 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
 
             }break;
-
+            case R.id.Log_out:{
+                editor.putString("isLogin","");
+                editor.apply();
+                startActivity(new Intent(HomePageActivity.this,MainActivity.class));
+                break;
+            }
             default:break;
         }
     }
@@ -296,6 +389,54 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
+    }
+
+    private void setAg(){
+        isAg=true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                while (true) {
+
+                    if(!mBinder.isPlay()){
+                        break;
+                    }
+
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            songPhoto.setPivotX(songPhoto.getWidth() / 2);
+                            songPhoto.setPivotY(songPhoto.getHeight() / 2);//支点在图片中心
+                            songPhoto.setRotation(ag);
+
+                            ag+=0.1;
+
+                            if(ag>360){
+                                ag=0;
+                            }
+
+                        }
+                    });
+
+                }
+
+            }
+        }).start();
     }
 
 }
