@@ -26,10 +26,8 @@ import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.adapter.CreatePlaylistAdapter;
 import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.CreatePlaylist;
-import com.example.redrock.viewModel.HomePageFoundViewModel;
-import com.example.redrock.viewModel.HomePageMyViewModel;
+import com.example.redrock.viewmodel.HomePageMyViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PageMy extends Fragment {

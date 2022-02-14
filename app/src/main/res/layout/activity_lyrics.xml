@@ -50,8 +50,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
+        <ImageView
+            android:clickable="true"
+            android:id="@+id/in_commend"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="right"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/in_commend"
+            android:focusable="true" />
+
        <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
            android:gravity="center"
            android:orientation="horizontal"
            android:layout_width="match_parent"

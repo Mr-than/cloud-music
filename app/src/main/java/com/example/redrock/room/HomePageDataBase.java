@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.redrock.areaConverters.*;
+import com.example.redrock.areaconverters.*;
 import com.example.redrock.bean.*;
 
 @Database(version = 1,entities = {WonderfulRecommendPlaylistBean.class,CreatePlaylistBean.class,

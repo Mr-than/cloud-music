@@ -1,6 +1,5 @@
-package com.example.redrock.viewModel;
+package com.example.redrock.viewmodel;
 
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
@@ -14,12 +13,9 @@ import com.example.redrock.base.APP;
 import com.example.redrock.bean.LoginBean;
 import com.example.redrock.model.InternetTool;
 
-import com.example.redrock.room.DayRecommendSongsDao;
 import com.example.redrock.room.HomePageDataBase;
 import com.example.redrock.room.LoginBeanDao;
 import com.example.redrock.service.PlayMusicService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;

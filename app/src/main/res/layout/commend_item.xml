@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+       <ImageView
+           android:id="@+id/commend_item_pr_photo"
+           android:layout_width="45dp"
+           android:layout_height="45dp"
+           android:layout_marginLeft="20dp"/>
+
+       <LinearLayout
+           android:layout_width="170dp"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:orientation="vertical">
+
+           <TextView
+               android:ellipsize="end"
+               android:singleLine="true"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/commend_item_pr_name"
+               android:textColor="@color/black"
+               android:textSize="15dp"/>
+           <TextView
+               android:id="@+id/commend_item_commend_data"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="11dp"
+               android:layout_marginTop="2dp"/>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal"
+           android:gravity="right">
+
+           <TextView
+               android:layout_marginRight="10dp"
+               android:id="@+id/commend_item_like"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <ImageView
+               android:layout_marginRight="20dp"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:src="@drawable/commend_like"/>
+       </LinearLayout>
+   </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/commend_item_commend"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="30dp"/>
+
+    <View
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#B7E8E8E8"/>
+
+</LinearLayout>

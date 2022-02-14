@@ -25,9 +25,8 @@ import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.activity.MainActivity;
 import com.example.redrock.base.APP;
 import com.example.redrock.dialog.LoginPhoneDialogFragment;
-import com.example.redrock.viewModel.HomePageViewModel;
-import com.example.redrock.viewModel.LoginPhoneViewModel;
-import com.example.redrock.viewModel.MainActivityViewModel;
+import com.example.redrock.viewmodel.LoginPhoneViewModel;
+import com.example.redrock.viewmodel.MainActivityViewModel;
 
 public class PhoneLoginFragment extends Fragment implements View.OnClickListener {
     //下面这个变量获取了装载国家码和旁边三角图片的父布局
@@ -140,7 +139,6 @@ public class PhoneLoginFragment extends Fragment implements View.OnClickListener
                         transaction.commit();
 
                         mainActivityViewModel.setPhone(phoneNumber.getText().toString());
-
                     }
                 }
             }break;

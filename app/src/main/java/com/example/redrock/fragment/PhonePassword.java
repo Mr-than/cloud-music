@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -27,9 +28,8 @@ import com.example.redrock.activity.MainActivity;
 import com.example.redrock.base.APP;
 import com.example.redrock.base.BaseActivity;
 import com.example.redrock.room.LoginBeanDao;
-import com.example.redrock.viewModel.HomePageViewModel;
-import com.example.redrock.viewModel.MainActivityViewModel;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.redrock.viewmodel.HomePageViewModel;
+import com.example.redrock.viewmodel.MainActivityViewModel;
 
 public class PhonePassword extends Fragment {
 
@@ -44,6 +44,7 @@ public class PhonePassword extends Fragment {
     private HomePageViewModel homePageViewModel;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private Button button;
 
 
     @Nullable
@@ -91,6 +92,25 @@ public class PhonePassword extends Fragment {
     }
 
     private void init() {
+
+        button=view.findViewById(R.id.forget_possword);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentManager manager= getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.fra_global,new NewPasswordFragment());
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+
+            }
+        });
+
+
+
 
         sp=APP.getContext().getSharedPreferences("Automatic_login", BaseActivity.MODE_PRIVATE);
         editor=sp.edit();

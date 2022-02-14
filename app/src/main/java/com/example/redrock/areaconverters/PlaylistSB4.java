@@ -1,9 +1,8 @@
-package com.example.redrock.areaConverters;
+package com.example.redrock.areaconverters;
 
 import androidx.room.TypeConverter;
 
 import com.example.redrock.bean.LoginBean;
-import com.example.redrock.bean.PlaylistSongsBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,4 +1,4 @@
-package com.example.redrock.areaConverters;
+package com.example.redrock.areaconverters;
 
 import androidx.room.TypeConverter;
 import com.google.gson.Gson;

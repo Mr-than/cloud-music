@@ -8,30 +8,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.redrock.R;
 import com.example.redrock.activity.MainActivity;
+import com.example.redrock.base.APP;
+import com.example.redrock.model.InternetTool;
+import com.example.redrock.viewmodel.MainActivityViewModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VerificationCodeFragment<MainActivity> extends Fragment {
+public class VerificationCodeFragment extends Fragment {
     private View view;
-    private EditText e1,e2,e3,e4,e5,e6;
+    private EditText e1,e2,e3,e4;
     private String code;
     private boolean is;
-    private Button phonePassword;
+
     //这个是活动
     private MainActivity mainActivity;
-
+    private InternetTool tool;
+    private String phone;
+    private String password;
+    private TextView textView;
 
     @Nullable
     @Override
@@ -44,23 +53,44 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
 
 
 
+        MainActivityViewModel mainActivityViewModel= ViewModelProviders.of((MainActivity)getActivity()).get(MainActivityViewModel.class);
+        mainActivityViewModel.phonePwd.observe((MainActivity) getActivity(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+
+                phone=strings.get(0);
+                password=strings.get(1);
+
+                String p=phone.substring(0,4)+"*****"+phone.substring(phone.length()-4);
+
+                textView.setText(p);
+
+                tool.setBaseUrl("http://redrock.udday.cn:2022")
+                        .setRequestType(InternetTool.GET)
+                        .setPortPath("/captcha/sent")
+                        .setRequestData("phone",phone)
+                        .startRequest(new InternetTool.Back() {
+                            @Override
+                            public void onError() {
+                            }
+
+                            @Override
+                            public void onFinish(String data) {
+
+                            }
+                        });
+
+            }
+        });
+
 
         return view;
     }
 
     private void init() {
 
-        phonePassword=view.findViewById(R.id.phone_password_login);
-        phonePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager manager=getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fra_global,new PhonePassword());
-
-                transaction.commit();
-            }
-        });
+        textView=view.findViewById(R.id.phone_number);
+        tool=new InternetTool();
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         is=true;
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -68,22 +98,19 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
         e2=view.findViewById(R.id.e2);
         e3=view.findViewById(R.id.e3);
         e4=view.findViewById(R.id.e4);
-        e5=view.findViewById(R.id.e5);
-        e6=view.findViewById(R.id.e6);
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e1.setCursorVisible(false);
         e2.setCursorVisible(false);
         e3.setCursorVisible(false);
         e4.setCursorVisible(false);
-        e5.setCursorVisible(false);
-        e6.setCursorVisible(false);
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         List<EditText> list=new ArrayList<>();
         list.add(e2);
         list.add(e3);
         list.add(e4);
-        list.add(e5);
-        list.add(e6);
+
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         e1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,11 +140,11 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.showSoftInput(e2, 0);
                     }else {
-                        e6.requestFocus();
-                        e6.setSelection(1);
-                        e6.setFocusableInTouchMode(true);
+                        e4.requestFocus();
+                        e4.setSelection(1);
+                        e4.setFocusableInTouchMode(true);
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(e6, 0);
+                        imm.showSoftInput(e4, 0);
                     }
                 }
                 else if(is&&e1.getText().toString().length()>1){
@@ -133,11 +160,11 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.showSoftInput(e2, 0);
                     }else {
-                        e6.requestFocus();
-                        e6.setSelection(1);
-                        e6.setFocusableInTouchMode(true);
+                        e4.requestFocus();
+                        e4.setSelection(1);
+                        e4.setFocusableInTouchMode(true);
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(e6, 0);
+                        imm.showSoftInput(e4, 0);
                     }
                 }
             }
@@ -225,10 +252,8 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                e5.requestFocus();
-                e5.setFocusableInTouchMode(true);
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(e5, 0);
+
+
             }
 
             @Override
@@ -246,73 +271,73 @@ public class VerificationCodeFragment<MainActivity> extends Fragment {
                     e3.setFocusableInTouchMode(true);
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(e3, 0);
+                }else if(e4.getText().toString().length()==1){
+
+                    String v=e1.getText().toString()+e2.getText().toString()+
+                            e3.getText().toString()+e4.getText().toString();
+
+                    if(v.length()==4) {
+                        tool = new InternetTool();
+                        tool.setBaseUrl("http://redrock.udday.cn:2022")
+                                .setRequestType(InternetTool.GET)
+                                .setPortPath("/register/cellphone")
+                                .setRequestData("phone", phone)
+                                .setRequestData("password", password)
+                                .setRequestData("captcha", v)
+                                .startRequest(new InternetTool.Back() {
+                                    @Override
+                                    public void onError() {
+                                    }
+
+                                    @Override
+                                    public void onFinish(String data) {
+
+                                        try {
+                                            JSONObject jsonObject=new JSONObject(data);
+                                            String code=jsonObject.getString("code");
+
+                                            if(code.equals("200")){
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(APP.getContext(), "密码修改成功", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }else {
+
+                                                JSONObject jsonObject1=new JSONObject(data);
+                                                String msg=jsonObject1.getString("message");
+
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+
+                                                        Toast.makeText(APP.getContext(), msg, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                    }else {
+
+                        Toast.makeText(APP.getContext(), "验证码错误", Toast.LENGTH_SHORT).show();
+
+                    }
+
                 }
+
+
+
             }
         });
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        e5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                e6.requestFocus();
-                e6.setFocusableInTouchMode(true);
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(e6, 0);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if(e5.getText().toString().length()<=0||e5.getText().toString()==null){
-                    e4.requestFocus();
-                    if(e4.getText().toString().length()>0) {
-                        e4.setSelection(1);
-                    }else {
-                        e4.setSelection(0);
-                    }
-                    e4.setFocusableInTouchMode(true);
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(e4, 0);
-                }
-
-            }
-        });
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        e6.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if(e6.getText().toString().length()<=0||e6.getText().toString()==null){
-                    e5.requestFocus();
-                    if(e5.getText().toString().length()>0) {
-                        e5.setSelection(1);
-                    }else {
-                        e5.setSelection(0);
-                    }
-                    e5.setFocusableInTouchMode(true);
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(e5, 0);
-                }else if(e6.getText().toString().length()==1){
-                    Toast.makeText(getActivity(), "成功！！", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
     }
 
     public void changeIs(){

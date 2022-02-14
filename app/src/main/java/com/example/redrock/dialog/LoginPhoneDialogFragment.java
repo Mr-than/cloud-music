@@ -19,9 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.redrock.R;
 import com.example.redrock.adapter.CountryChooseAdapter;
 import com.example.redrock.bean.CountryAndRegion;
-import com.example.redrock.fragment.PhoneLoginFragment;
 import com.example.redrock.model.CountryChooseTitle;
-import com.example.redrock.viewModel.LoginPhoneViewModel;
+import com.example.redrock.viewmodel.LoginPhoneViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

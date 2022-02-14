@@ -1,4 +1,4 @@
-package com.example.redrock.viewModel;
+package com.example.redrock.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -24,6 +24,8 @@ public class LyricsActivityViewModel extends ViewModel {
     public LiveData<List<LyricsBean>> lyrics=_lyrics;
     public LiveData<Integer> playPause=_playPause;
     public LiveData<String> musicName=_musicName;
+    private MutableLiveData<String> _songId=new MutableLiveData<>();
+    public LiveData<String> songId=_songId;
 
     private MutableLiveData<String> _musicPhoto=new MutableLiveData<>();
     public LiveData<String> musicPhoto=_musicPhoto;
@@ -186,4 +188,9 @@ public class LyricsActivityViewModel extends ViewModel {
     public void setMusicPhoto(String url) {
         this._musicPhoto.postValue(url);
     }
+
+    public void setSongId(String id){
+        _songId.postValue(id);
+    }
+
 }

@@ -1,11 +1,10 @@
-package com.example.redrock.viewModel;
+package com.example.redrock.viewmodel;
 
 import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
 
 import com.example.redrock.activity.HomePageActivity;
@@ -20,6 +19,9 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
 
@@ -43,10 +45,16 @@ public class MainActivityViewModel extends ViewModel {
     private MutableLiveData<String> _msg=new MutableLiveData<>();
     private MutableLiveData<LoginBeanDao> _jump=new MutableLiveData<>();
 
+
+    private MutableLiveData<List<String>> _phonePwd=new MutableLiveData<>();
+    public LiveData<List<String>> phonePwd=_phonePwd;
+
     private HomePageViewModel homePageViewModel;
     private HomePageActivity homePageActivity;
 
     public LiveData<LoginBeanDao> jump=_jump;
+
+    private List<String> data=new ArrayList<>();
 
 
     public LiveData<String> msg=_msg;
@@ -56,6 +64,7 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setPhone(String phone) {
         this.phone = phone;
+        data.add(phone);
     }
 
     public void setPassword(String password) {
@@ -144,4 +153,13 @@ public class MainActivityViewModel extends ViewModel {
         this.spDaySong = spDaySong;
         editor3=spDaySong.edit();
     }
+
+
+    public void setPhonePwd(String data){
+        this.data.add(data);
+        _phonePwd.postValue(this.data);
+    }
+
+
+
 }

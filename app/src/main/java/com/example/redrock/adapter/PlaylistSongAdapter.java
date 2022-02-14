@@ -20,8 +20,8 @@ import com.example.redrock.activity.LyricsActivity;
 import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.bean.PlaylistSongs;
 import com.example.redrock.service.PlayMusicService;
-import com.example.redrock.viewModel.HomePageViewModel;
-import com.example.redrock.viewModel.LyricsActivityViewModel;
+import com.example.redrock.viewmodel.HomePageViewModel;
+import com.example.redrock.viewmodel.LyricsActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,6 +134,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                                     lyricsActivityViewModel.setServiceBinder(playSongBinder);
                                     lyricsActivityViewModel.setName(songs.getName());
                                     lyricsActivityViewModel.setMusicPhoto(songs.getPhoto());
+                                    lyricsActivityViewModel.setSongId(songs.getId());
                                 }
 
                     }).start();

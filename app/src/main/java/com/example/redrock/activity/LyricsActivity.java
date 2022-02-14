@@ -5,10 +5,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -30,19 +28,19 @@ import com.example.redrock.adapter.LyricsAdapter;
 import com.example.redrock.bean.LyricsBean;
 import com.example.redrock.model.CenterLayoutManager;
 import com.example.redrock.service.PlayMusicService;
-import com.example.redrock.viewModel.HomePageViewModel;
-import com.example.redrock.viewModel.LyricsActivityViewModel;
+import com.example.redrock.viewmodel.CommendActivityViewModel;
+import com.example.redrock.viewmodel.HomePageViewModel;
+import com.example.redrock.viewmodel.LyricsActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class LyricsActivity extends AppCompatActivity {
 
     private TextView progress1,progress2,progress3,progress4,musicName;
 
-    private ImageView playPause,musicPhoto;
+    private ImageView playPause,musicPhoto,inCommend;
 
     private SeekBar seekBar;
 
@@ -76,6 +74,10 @@ public class LyricsActivity extends AppCompatActivity {
     private float ag=0;
 
     private boolean isAg=false;
+
+    private String songId;
+    private String songName;
+    private String songPhoto;
 
 
 
@@ -165,6 +167,7 @@ public class LyricsActivity extends AppCompatActivity {
         lyricsActivityViewModel.musicName.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                songName=s;
                 musicName.setText(s);
             }
         });
@@ -173,17 +176,53 @@ public class LyricsActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 Glide.with(LyricsActivity.this).load(s).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(musicPhoto);
-
+                songPhoto=s;
                 if(!isAg){
                     setAg();
                 }
 
             }
         });
+        lyricsActivityViewModel.songId.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                songId=s;
+            }
+        });
 
     }
 
     private void intView() {
+
+        inCommend=findViewById(R.id.in_commend);
+        inCommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(LyricsActivity.this,CommentsActivity.class));
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        CommendActivityViewModel commendActivityViewModel=ViewModelProviders.of(CommentsActivity.COMMEND_ACTIVITY).get(CommendActivityViewModel.class);
+                        commendActivityViewModel.getCommend(songId);
+                        commendActivityViewModel.setSongName(songName);
+                        commendActivityViewModel.setSongPhoto(songPhoto);
+
+
+                    }
+                }).start();
+            }
+        });
+
+
 
         lyricsActivityViewModel= ViewModelProviders.of(this).get(LyricsActivityViewModel.class);
 

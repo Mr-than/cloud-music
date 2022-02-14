@@ -33,9 +33,9 @@ import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.DayRecommendBean;
 import com.example.redrock.room.LoginBeanDao;
 import com.example.redrock.service.PlayMusicService;
-import com.example.redrock.viewModel.HomePageFoundViewModel;
-import com.example.redrock.viewModel.HomePageViewModel;
-import com.example.redrock.viewModel.PlaylistSongViewModel;
+import com.example.redrock.viewmodel.HomePageFoundViewModel;
+import com.example.redrock.viewmodel.HomePageViewModel;
+import com.example.redrock.viewmodel.PlaylistSongViewModel;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

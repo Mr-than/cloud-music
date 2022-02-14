@@ -18,7 +18,7 @@ import com.example.redrock.activity.HomePageActivity;
 import com.example.redrock.activity.PlaylistSongActivity;
 import com.example.redrock.base.APP;
 import com.example.redrock.bean.DayRecommendBean;
-import com.example.redrock.viewModel.PlaylistSongViewModel;
+import com.example.redrock.viewmodel.PlaylistSongViewModel;
 
 import java.util.List;
 

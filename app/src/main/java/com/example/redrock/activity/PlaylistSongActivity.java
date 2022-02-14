@@ -1,22 +1,15 @@
 package com.example.redrock.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.AbsoluteSizeSpan;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,16 +22,13 @@ import com.example.redrock.R;
 import com.example.redrock.adapter.PlaylistSongAdapter;
 import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.PlaylistSongs;
-import com.example.redrock.fragment.PageFound;
-import com.example.redrock.viewModel.PlaylistSongViewModel;
+import com.example.redrock.viewmodel.PlaylistSongViewModel;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.TimeZone;
 
 public class PlaylistSongActivity extends BaseActivity {

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.redrock.R;
 import com.example.redrock.base.BaseActivity;
 import com.example.redrock.fragment.LoginFragment;
-import com.example.redrock.viewModel.MainActivityViewModel;
+import com.example.redrock.viewmodel.MainActivityViewModel;
 
 /**
  *   description:App启动的启动页面，这个活动装载多个fragment，便于在其他地方调用需要的fragment
@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         sp=getSharedPreferences("Automatic_login",MODE_PRIVATE);
         editor=sp.edit();

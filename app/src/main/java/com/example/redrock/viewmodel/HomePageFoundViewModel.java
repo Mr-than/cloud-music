@@ -1,8 +1,7 @@
-package com.example.redrock.viewModel;
+package com.example.redrock.viewmodel;
 
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,7 +16,6 @@ import com.example.redrock.bean.LoginBean;
 import com.example.redrock.bean.WonderfulRecommendPlaylistBean;
 import com.example.redrock.model.InternetTool;
 import com.example.redrock.room.DayRecommendPlaylistsDao;
-import com.example.redrock.room.DayRecommendSongsDao;
 import com.example.redrock.room.HomePageDataBase;
 import com.example.redrock.room.LoginBeanDao;
 import com.example.redrock.room.WonderfulPlaylistDao;
@@ -27,7 +25,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class HomePageFoundViewModel extends ViewModel {
 

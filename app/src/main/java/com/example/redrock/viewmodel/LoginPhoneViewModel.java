@@ -1,4 +1,4 @@
-package com.example.redrock.viewModel;
+package com.example.redrock.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

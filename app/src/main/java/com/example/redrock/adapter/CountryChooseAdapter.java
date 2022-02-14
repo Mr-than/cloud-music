@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.redrock.R;
 import com.example.redrock.bean.CountryAndRegion;
 import com.example.redrock.dialog.LoginPhoneDialogFragment;
-import com.example.redrock.fragment.PhoneLoginFragment;
-import com.example.redrock.viewModel.LoginPhoneViewModel;
+import com.example.redrock.viewmodel.LoginPhoneViewModel;
 
 import java.util.List;
 
