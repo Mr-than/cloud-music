@@ -132,12 +132,13 @@ public class PhonePassword extends Fragment {
                 public void onClick(View view) {
 
 
-                            login.requestFocus();
-                            login.setFocusableInTouchMode(true);
-                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.showSoftInput(login, 0);
-
                             progressBar.setVisibility(View.VISIBLE);
+
+
+                    InputMethodManager manager = ((InputMethodManager)APP.getContext(). getSystemService(Context.INPUT_METHOD_SERVICE));
+                    if (manager != null) {
+                        manager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
 
                             if (password.getText().toString().length() == 0) {
                                 progressBar.setVisibility(View.GONE);

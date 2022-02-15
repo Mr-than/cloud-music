@@ -84,7 +84,7 @@ public class MainActivityViewModel extends ViewModel {
                 .startRequest(new InternetTool.Back() {
                     @Override
                     public void onError() {
-                        _msg.postValue("账号或密码错误");
+                        _msg.postValue("账号或密码错误,或密码错误次数超出限制");
                     }
 
                     @Override
@@ -125,6 +125,9 @@ public class MainActivityViewModel extends ViewModel {
                 editor3.apply();
             }
             _jump.postValue(loginBeanDao);
+        }else {
+            String msg=jsonObject.getString("msg");
+            _msg.postValue(msg);
         }
 
 

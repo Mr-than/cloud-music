@@ -1,6 +1,7 @@
 package com.example.redrock.room;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -27,8 +28,11 @@ public interface LoginBeanDao {
     @Query("UPDATE Loginbean SET cookie=:cookie")
     public int upC(String cookie);
 
-    @Query("SELECT cookie FROM Loginbean")
+    @Query("SELECT cookie FROM LoginBean")
     public String getCookie();
+
+    @Query("DELETE FROM LoginBean")
+    public void nukeTable();
 
 
 }

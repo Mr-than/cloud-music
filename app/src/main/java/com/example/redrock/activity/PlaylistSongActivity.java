@@ -26,6 +26,7 @@ import com.example.redrock.viewmodel.PlaylistSongViewModel;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -49,10 +50,33 @@ public class PlaylistSongActivity extends BaseActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
+    private SharedPreferences update;
+    private SharedPreferences.Editor upe;
+    private BigInteger bigInteger;
+    private BigInteger updateT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_song);
+
+
+        update=getSharedPreferences("PlaylistUpdateTime",BaseActivity.MODE_PRIVATE);
+        upe=update.edit();
+
+        bigInteger=new BigInteger(String.valueOf(System.currentTimeMillis()));
+
+        if((update.getString("time","")!=null&&update.getString("time","").length()>0)){
+            updateT=new BigInteger(update.getString("time",""));
+            long time=Long.parseLong(bigInteger.subtract(updateT).toString());
+            if(time>=3600000){
+                playlistSongViewModel.getDayRecommendFromIn();
+                upe.putString("time",String.valueOf(System.currentTimeMillis()));
+                upe.apply();
+            }
+        }
+
+
 
         sp=getSharedPreferences("isSongRefresh",MODE_PRIVATE);
         editor=sp.edit();
@@ -123,6 +147,8 @@ public class PlaylistSongActivity extends BaseActivity {
             playlistSongViewModel.getDayRecommendFromIn();
             editor.putString("refresh_3","");
             editor.apply();
+            upe.putString("time",String.valueOf(System.currentTimeMillis()));
+            upe.apply();
         }
 
 

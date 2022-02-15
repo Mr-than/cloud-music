@@ -53,7 +53,8 @@ public class PlaylistSongViewModel extends ViewModel {
 
 
 
-            cookie= loginBeanDao.load().get(0).getCookie();
+
+            cookie= loginBeanDao.getCookie();
 
 
 
@@ -76,7 +77,7 @@ public class PlaylistSongViewModel extends ViewModel {
 
 
             }else {
-                cookie=loginBeanDao.load().get(0).getCookie();
+                cookie=loginBeanDao.getCookie();
                 tool = new InternetTool();
                 tool.setBaseUrl("http://redrock.udday.cn:2022")
                         .setRequestType(InternetTool.GET)
@@ -172,7 +173,7 @@ public class PlaylistSongViewModel extends ViewModel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                cookie=loginBeanDao.load().get(0).getCookie();
+                cookie=loginBeanDao.getCookie();
                 tool = new InternetTool();
                 tool.setBaseUrl("http://redrock.udday.cn:2022")
                         .setRequestType(InternetTool.GET)

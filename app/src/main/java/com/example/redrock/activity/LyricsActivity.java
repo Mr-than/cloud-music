@@ -462,7 +462,7 @@ public class LyricsActivity extends AppCompatActivity {
     public void aaa(String time){
 
         for (int i=0; i < lyricsList.size(); i++) {
-            if(lyricsList.get(i).getTime().equals(time)&&i!=firstLy){
+            if(lyricsList.get(i).getTime().equals(time)){
                 setLyrics(i);
             }
 

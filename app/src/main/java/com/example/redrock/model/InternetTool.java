@@ -138,6 +138,7 @@ public class InternetTool {
                     onFinish(stringBuilder,back);
 
                 }catch (Exception e){
+                    back.onError();
                    // Toast.makeText(PlaylistSongActivity.PLAYLIST_ACTIVITY, "网络异常，加载歌单失败", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }

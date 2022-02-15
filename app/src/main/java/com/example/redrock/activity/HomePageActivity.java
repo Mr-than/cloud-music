@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -30,6 +31,11 @@ import com.example.redrock.base.APP;
 import com.example.redrock.base.BaseActivity;
 import com.example.redrock.fragment.PageFound;
 import com.example.redrock.fragment.PageMy;
+import com.example.redrock.room.DayRecommendPlaylistsDao;
+import com.example.redrock.room.DayRecommendSongsDao;
+import com.example.redrock.room.HomePageDataBase;
+import com.example.redrock.room.LoginBeanDao;
+import com.example.redrock.room.PersonalPlaylistDao;
 import com.example.redrock.service.PlayMusicService;
 import com.example.redrock.viewmodel.HomePageMyViewModel;
 import com.example.redrock.viewmodel.HomePageViewModel;
@@ -53,6 +59,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private String photoUrl;
     private EditText search;
 
+    private HomePageDataBase dataBase;
     private Button logOut;
 
     public static HomePageActivity HOME_PAGE_ACTIVITY=null;
@@ -65,6 +72,8 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     private String songId;
 
+    private SharedPreferences spFound,spMy,spDaySong;
+
 
     private int angle=0;
 
@@ -72,6 +81,8 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+
+    private SharedPreferences.Editor editor1,editor2,editor3;
 
     private boolean isAg=false;
     private float ag=0f;
@@ -82,6 +93,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_home_page);
 
         init();
+
+        spFound=getSharedPreferences("isFoundRefresh",MODE_PRIVATE);
+        editor1=spFound.edit();
+        spMy=getSharedPreferences("isMyRefresh",MODE_PRIVATE);
+        editor2=spMy.edit();
+        spDaySong=getSharedPreferences("isSongRefresh",MODE_PRIVATE);
+        editor3=spDaySong.edit();
 
         DrawerLayout.SimpleDrawerListener mSimpleDrawerListener = new DrawerLayout.SimpleDrawerListener(){
             @Override
@@ -368,6 +386,47 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 editor.putString("isLogin","");
                 editor.apply();
                 startActivity(new Intent(HomePageActivity.this,MainActivity.class));
+                dataBase= Room.databaseBuilder(APP.getContext(),HomePageDataBase.class,"HomeFoundWonderful").build();
+                LoginBeanDao loginBeanDao=dataBase.loginBeanDao();
+                DayRecommendPlaylistsDao dayRecommendPlaylistsDao=dataBase.dayRecommendPlaylistsDao();
+                DayRecommendSongsDao dayRecommendSongsDao=dataBase.dayRecommendSongsDao();
+                PersonalPlaylistDao personalPlaylistDao=dataBase.getPersonalPlaylistDao();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginBeanDao.nukeTable();
+                        dayRecommendPlaylistsDao.nukeTable();
+                        dayRecommendSongsDao.nukeTable();
+                        personalPlaylistDao.nukeTable();
+                        SharedPreferences.Editor editor=getSharedPreferences("roomIsEmpty",MODE_PRIVATE).edit();
+                        SharedPreferences.Editor editor1=getSharedPreferences("found", BaseActivity.MODE_PRIVATE).edit();
+                        SharedPreferences.Editor editor2=getSharedPreferences("my", BaseActivity.MODE_PRIVATE).edit();
+                        SharedPreferences.Editor editor3=getSharedPreferences("re",MODE_PRIVATE).edit();
+
+
+                        editor1.putString("drpl","");
+                        editor1.putString("wrpl","");
+                        editor1.apply();
+                        editor2.putString("cplb","");
+                        editor2.apply();
+                        editor3.putString("drsb","");
+                        editor3.apply();
+
+                        editor.putString("is","");
+                        editor.apply();
+
+                        if(mBinder.isPlay()){
+                            mBinder.pause();
+                            stopService(new Intent(HomePageActivity.this,PlayMusicService.class));
+                        }
+                        finish();
+
+                    }
+                }).start();
+
+
+
                 break;
             }
             default:break;

@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
         editor=sp.edit();
 
         mainActivityViewModel= ViewModelProviders.of(this).get(MainActivityViewModel.class);
+
         mainActivityViewModel.setSp(getSharedPreferences("roomIsEmpty",MODE_PRIVATE));
         mainActivityViewModel.setSpFound(getSharedPreferences("isFoundRefresh",MODE_PRIVATE));
         mainActivityViewModel.setSpMy(getSharedPreferences("isMyRefresh",MODE_PRIVATE));

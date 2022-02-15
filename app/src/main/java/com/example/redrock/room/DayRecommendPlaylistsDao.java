@@ -1,6 +1,7 @@
 package com.example.redrock.room;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -19,6 +20,9 @@ public interface DayRecommendPlaylistsDao {
 
     @Update
     public void update(DayRecommendPlaylistsBean bean);
+
+    @Query("DELETE FROM DayRecommendPlaylistsBean")
+    public void nukeTable();
 
 
 }

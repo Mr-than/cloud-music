@@ -1,6 +1,7 @@
 package com.example.redrock.room;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -20,6 +21,7 @@ public interface PersonalPlaylistDao {
     @Update
     public void update(CreatePlaylistBean bean);
 
-
+    @Query("DELETE FROM CreatePlaylistBean")
+    public void nukeTable();
 
 }
