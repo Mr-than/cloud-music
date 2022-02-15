@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -108,6 +109,13 @@ public class PlaylistSongActivity extends BaseActivity {
                     }
                 });
 
+                playlistSongViewModel.msg.observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        Toast.makeText(PlaylistSongActivity.this, s, Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
 
             playlistSongViewModel.playlistSong.observe(this, new Observer<List<PlaylistSongs>>() {
                 @Override
@@ -129,6 +137,9 @@ public class PlaylistSongActivity extends BaseActivity {
                             setToolbarTitle(playlistSongs.get(0).getPlaylistName(), " ");
                         }
 
+                        dialog.cancel();
+                    }else {
+                        Toast.makeText(PlaylistSongActivity.this, "歌单为空", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 }

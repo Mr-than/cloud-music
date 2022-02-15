@@ -88,6 +88,12 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private float ag=0f;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        homePageViewModel.setIsLogin();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -195,6 +201,13 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
+
+        homePageViewModel.isLogin.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                logOut.setText(s);
+            }
+        });
 
 
 
@@ -416,6 +429,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                         editor.putString("is","");
                         editor.apply();
 
+                        if(mBinder!=null)
                         if(mBinder.isPlay()){
                             mBinder.pause();
                             stopService(new Intent(HomePageActivity.this,PlayMusicService.class));

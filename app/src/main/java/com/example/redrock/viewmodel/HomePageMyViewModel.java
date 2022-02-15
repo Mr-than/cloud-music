@@ -136,6 +136,7 @@ public class HomePageMyViewModel extends ViewModel {
                 }
 
             List<CreatePlaylist> l=new ArrayList<>();
+                if(createPlaylistBean.getPlaylist()!=null)
                 for (int i = 0; i <createPlaylistBean.getPlaylist().size() ; i++) {
                     l.add(new CreatePlaylist(createPlaylistBean.getPlaylist().get(i).getName(),createPlaylistBean.getPlaylist().get(i).getCoverImgUrl(),createPlaylistBean.getPlaylist().get(i).getId()));
                 }

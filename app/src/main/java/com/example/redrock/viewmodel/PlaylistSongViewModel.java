@@ -44,6 +44,9 @@ public class PlaylistSongViewModel extends ViewModel {
     private MutableLiveData<List<PlaylistSongs>> _searchSong=new MutableLiveData<>();
     public LiveData<List<PlaylistSongs>> searchSong=_searchSong;
 
+    private MutableLiveData<String> _msg=new MutableLiveData<>();
+    public LiveData<String> msg=_msg;
+
 
 
 
@@ -88,7 +91,7 @@ public class PlaylistSongViewModel extends ViewModel {
                         .startRequest(new InternetTool.Back() {
                             @Override
                             public void onError() {
-
+                                _msg.postValue("未登录或歌单歌曲为零");
                             }
 
                             @Override
@@ -174,6 +177,12 @@ public class PlaylistSongViewModel extends ViewModel {
             @Override
             public void run() {
                 cookie=loginBeanDao.getCookie();
+
+                if(cookie==null){
+                    _msg.postValue("未登录");
+                    return;
+                }
+
                 tool = new InternetTool();
                 tool.setBaseUrl("http://redrock.udday.cn:2022")
                         .setRequestType(InternetTool.GET)
@@ -183,7 +192,7 @@ public class PlaylistSongViewModel extends ViewModel {
                         .startRequest(new InternetTool.Back() {
                             @Override
                             public void onError() {
-
+                                _msg.postValue("未登录或歌单歌曲为零");
                             }
 
                             @Override

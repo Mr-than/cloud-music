@@ -53,6 +53,9 @@ public class HomePageViewModel extends ViewModel {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
+    private MutableLiveData<String> _isLogin=new MutableLiveData<>();
+    public LiveData<String> isLogin=_isLogin;
+
 
     public final LiveData<String> songAu=_songAu;
 
@@ -152,6 +155,21 @@ public class HomePageViewModel extends ViewModel {
     }
 
 
+    public void setIsLogin(){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                    if(myDao.getCookie()!=null) {
+                        _isLogin.postValue("退出登录");
+                        return;
+                    }
+                    _isLogin.postValue("登录");
+            }
+        }).start();
+
+    }
 
 
 }

@@ -120,8 +120,6 @@ public class PlayMusicService extends Service {
                             .setSmallIcon(R.drawable.ico)
                             .setContentIntent(pi)
                             .setContentText("");
-
-
                             startForeground(1, builder.build());
                 }
             }).start();
