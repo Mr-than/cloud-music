@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/loginpage"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:alpha="0.2"
-        app:lottie_speed="0.3"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"
         android:id="@+id/lot_upperMiddle"
         android:layout_width="match_parent"
-        android:layout_height="406dp"
+        android:layout_height="300dp"
         android:layout_gravity="top"
-        app:lottie_fileName="first.json" />
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="first.json"
+        app:lottie_loop="true"
+        app:lottie_speed="0.3" />
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/phone_login"
@@ -34,41 +47,43 @@
 
         <Button
             android:id="@+id/wechat_login"
-            android:textColor="@color/white"
-            android:background="@drawable/wechat_button_shape"
             android:layout_width="280dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="微信登录" />
+            android:background="@drawable/wechat_button_shape"
+            android:text="微信登录"
+            android:textColor="@color/white" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <ImageView
-                android:clickable="true"
+                android:id="@+id/ima_belowLeft"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="50dp"
+                android:clickable="true"
+                android:src="@drawable/qq_ima_selector" />
+
+            <ImageView
+                android:id="@+id/ima_belowCenter"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/qq_ima_selector"
-                android:id="@+id/ima_belowLeft"/>
-            <ImageView
                 android:clickable="true"
+                android:src="@drawable/wb_ima_selector" />
+
+            <ImageView
+                android:id="@+id/ima_belowRight"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/wb_ima_selector"
-                android:id="@+id/ima_belowCenter"/>
-            <ImageView
-                android:clickable="true"
                 android:layout_marginLeft="50dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/wy_ima_selector"
-                android:id="@+id/ima_belowRight"/>
+                android:clickable="true"
+                android:src="@drawable/wy_ima_selector" />
 
         </LinearLayout>
 
@@ -87,19 +102,17 @@
                 app:lottie_fileName="checkbox.json" />
 
             <TextView
-                android:textSize="12dp"
                 android:id="@+id/text_belowRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="同意 服务条款、隐私政策、中国移动认证服务协议" />
+                android:text="同意 服务条款、隐私政策、中国移动认证服务协议"
+                android:textSize="12dp" />
 
 
         </LinearLayout>
 
 
-
-
     </LinearLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
