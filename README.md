@@ -37,13 +37,11 @@
 
 ## 功能展示
 
-<img src="D:\FFOutput\001.gif" alt="001" style="zoom: 25%;" />
+<img src="http://42.192.50.23:8888/down/tdC280KlD827" style="zoom:25%;" />
 
 
 
-<img src="D:\FFOutput\002.gif" alt="002" style="zoom: 25%;" />
-
-***
+<img src="http://42.192.50.23:8888/down/GkTKMGtRDJpX" style="zoom:25%;" />
 
 以上演示了部分功能（录演示视频的时候发现歌曲评论接口挂了）。
 
@@ -51,7 +49,7 @@
 
 * 使用了MVVM架构
 
-* 使用了jetpack
+* 使用了room存储数据
 
 * 部分地方使用了Material Design的控件
 
