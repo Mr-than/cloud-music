@@ -7,6 +7,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.List;
 
+/**
+ *   description:主活动里VP2的adapter
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class HomePageAdapter extends FragmentStateAdapter {
 
     private List<Fragment> list;

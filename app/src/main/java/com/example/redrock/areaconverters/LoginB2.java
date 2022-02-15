@@ -6,7 +6,14 @@ import com.example.redrock.bean.LoginBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class PlaylistSB2 {
+/**
+ *   description:登录信息转换器
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
+public class LoginB2 {
     @TypeConverter
     public static LoginBean.ProfileDTO revert(String data){
         Gson gson=new Gson();

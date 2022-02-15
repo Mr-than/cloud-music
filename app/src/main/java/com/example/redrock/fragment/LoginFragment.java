@@ -24,6 +24,13 @@ import com.example.redrock.R;
 import com.example.redrock.activity.MainActivity;
 import com.example.redrock.base.APP;
 
+/**
+ *   description:选择登录方式的界面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private LottieAnimationView boxLottie;

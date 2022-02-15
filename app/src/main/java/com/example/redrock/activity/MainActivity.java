@@ -15,7 +15,7 @@ import com.example.redrock.fragment.LoginFragment;
 import com.example.redrock.viewmodel.MainActivityViewModel;
 
 /**
- *   description:App启动的启动页面，这个活动装载多个fragment，便于在其他地方调用需要的fragment
+ *   description:App启动的启动页面，这个活动装载多个fragment，便于调用
  *   author:冉跃
  *   email:2058109198@qq.com
  *   date:2022/1/21

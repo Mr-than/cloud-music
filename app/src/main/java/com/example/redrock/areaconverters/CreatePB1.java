@@ -6,6 +6,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
 
+/**
+ *   description:私人歌单的转换器，用于数据库存储
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class CreatePB1 {
     @TypeConverter
     public static List<CreatePlaylistBean.PlaylistDTO> revert(String data){

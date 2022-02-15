@@ -24,6 +24,13 @@ import com.example.redrock.bean.CommendBean;
 
 import java.util.List;
 
+/**
+ *   description:显示歌曲热评和发送评论的adapter
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/14
+ */
+
 public class CommendAdapter extends RecyclerView.Adapter<CommendAdapter.CommendHolder>{
 
     private List<CommendBean> list;

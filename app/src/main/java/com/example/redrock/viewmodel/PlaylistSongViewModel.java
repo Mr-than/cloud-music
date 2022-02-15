@@ -22,6 +22,13 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:歌单详细页面的ViewModel
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class PlaylistSongViewModel extends ViewModel {
 
     private MutableLiveData<List<PlaylistSongs>> _playlistSong=new MutableLiveData<>();
@@ -53,9 +60,6 @@ public class PlaylistSongViewModel extends ViewModel {
 
 
     public void getPlaylistSong(String id){
-
-
-
 
             cookie= loginBeanDao.getCookie();
 

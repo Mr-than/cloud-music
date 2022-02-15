@@ -28,6 +28,13 @@ import com.example.redrock.dialog.LoginPhoneDialogFragment;
 import com.example.redrock.viewmodel.LoginPhoneViewModel;
 import com.example.redrock.viewmodel.MainActivityViewModel;
 
+/**
+ *   description:手机号登录页面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class PhoneLoginFragment extends Fragment implements View.OnClickListener {
     //下面这个变量获取了装载国家码和旁边三角图片的父布局
     private LinearLayout areaSelectionButton;

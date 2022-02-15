@@ -29,6 +29,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:验证码输入页面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class VerificationCodeFragment extends Fragment {
     private View view;
     private EditText e1,e2,e3,e4;

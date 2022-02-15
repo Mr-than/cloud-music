@@ -25,6 +25,13 @@ import com.example.redrock.viewmodel.LoginPhoneViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:装载国家码的dialogFragment
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/3
+ */
+
 public class LoginPhoneDialogFragment extends DialogFragment {
 
 

@@ -13,6 +13,13 @@ import com.example.redrock.bean.LyricsBean;
 
 import java.util.List;
 
+/**
+ *   description:歌词的adapter
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/10
+ */
+
 public class LyricsAdapter extends RecyclerView.Adapter<LyricsAdapter.ViewHolder>{
 
     private List<LyricsBean> list;

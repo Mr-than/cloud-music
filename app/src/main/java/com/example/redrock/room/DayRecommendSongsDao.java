@@ -10,6 +10,13 @@ import com.example.redrock.bean.*;
 
 import java.util.List;
 
+/**
+ *   description:日推歌曲的Dao
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 @Dao
 public interface DayRecommendSongsDao {
 

@@ -46,45 +46,63 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ *   description:这是主界面的活动，装载了一个VP2，VP2装载了两个fragment
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class HomePageActivity extends BaseActivity implements View.OnClickListener{
-
+    //主界面的VP2
     private ViewPager2 homePage;
+    //
     private TabLayout homeTy;
+    //装tablayout标签的list
     private List<String> tab;
+    //装VP2碎片的list
     private List<Fragment> page;
+    //toolbar
     private Toolbar homePageToolbar;
+    //
     private DrawerLayout homePageDrawer;
+    //侧滑栏上头像和下方正在播放歌曲的播放状态（头像和名字和“我的”页面里的是同一个资源）
     private ImageView headPortrait,songPhoto,play;
+    //正在播放歌曲的名字和作者，第一个userName是侧滑栏上的名字
     private TextView userName,songName,songAu;
+    //歌曲头像的url
     private String photoUrl;
+    //搜索框
     private EditText search;
-
+    //数据库
     private HomePageDataBase dataBase;
+    //登出按钮
     private Button logOut;
-
+    //活动本身，用于外界获取此活动
     public static HomePageActivity HOME_PAGE_ACTIVITY=null;
-
+    //服务的binder
     private PlayMusicService.PlaySongBinder mBinder;
-
+    //下方正在播放歌曲的父布局,用于跳转到歌词页面
     private LinearLayout songLyrics;
+    //歌词界面的ViewModel
     private LyricsActivityViewModel lyricsActivityViewModel;
+    //歌词活动的引用
     private LyricsActivity lyricsActivity;
-
+    //音乐的id
     private String songId;
-
+    //对应界面的sp，用于记录界面是否更新
     private SharedPreferences spFound,spMy,spDaySong;
-
-
-    private int angle=0;
-
+    //主界面的ViewModel
     private HomePageViewModel homePageViewModel;
-
+    //记录是否已经登录
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-
+    //用于记录三个界面的数据刷新时间
     private SharedPreferences.Editor editor1,editor2,editor3;
-
+    //是否再旋转
     private boolean isAg=false;
+    //播放歌曲的时候的图片旋转角度
     private float ag=0f;
 
     @Override
@@ -107,25 +125,11 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         spDaySong=getSharedPreferences("isSongRefresh",MODE_PRIVATE);
         editor3=spDaySong.edit();
 
-        DrawerLayout.SimpleDrawerListener mSimpleDrawerListener = new DrawerLayout.SimpleDrawerListener(){
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                //档DrawerLayout打开时，让整体DrawerLayout布局可以响应点击事件
-                drawerView.setClickable(true);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
-        };
-
-        homePageDrawer.addDrawerListener(mSimpleDrawerListener);
 
 
         HOME_PAGE_ACTIVITY=this;
         play.setVisibility(View.GONE);
-
+        //获取用户信息的观察者
         homePageViewModel.getData();
         homePageViewModel.headPortrait.observe(this, new Observer<String>() {
             @Override
@@ -139,7 +143,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 userName.setText(s);
             }
         });
-
+        //音乐信息的观察者
         homePageViewModel.songPhoto.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -170,7 +174,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         });
 
 
-
+        //控制音乐的开关
         homePageViewModel.pausePlay.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -194,6 +198,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
+        //获取服务的binder
         homePageViewModel.serviceConnect.observe(this, new Observer<PlayMusicService.PlaySongBinder>() {
             @Override
             public void onChanged(PlayMusicService.PlaySongBinder playSongBinder) {
@@ -210,7 +215,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         });
 
 
-
+        //设置tabLayout的样式，对应旋转时图片和没选择时的图片
         homeTy.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -347,6 +352,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    //调用这个方法让播放键显示
     public void setPlay(){
         play.setVisibility(View.VISIBLE);
     }
@@ -365,6 +371,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                     Intent intent=new Intent(this,LyricsActivity.class);
                     startActivity(intent);
 
+                    //延时，为了确保LyricsActivity.LYRICS_ACTIVITY不为空
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -447,6 +454,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    //重写返回键使其拥有home键效果，为了保证在后台运行，界面不出错
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -455,6 +463,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
         startActivity(intent);
     }
 
+    //图片旋转的方法
     private void setAg(){
         isAg=true;
         new Thread(new Runnable() {

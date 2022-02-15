@@ -1,5 +1,12 @@
 package com.example.redrock.bean;
 
+/**
+ *   description:歌词
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class SongLyricsBean {
 
 

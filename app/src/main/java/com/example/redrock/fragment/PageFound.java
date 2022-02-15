@@ -42,6 +42,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ *   description:“发现”页面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class PageFound extends Fragment implements View.OnClickListener{
 
     private View view;

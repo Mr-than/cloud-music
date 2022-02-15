@@ -19,6 +19,13 @@ import com.example.redrock.R;
 import com.example.redrock.base.APP;
 import com.example.redrock.viewmodel.MainActivityViewModel;
 
+/**
+ *   description:设置新密码的界面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class NewPasswordFragment extends Fragment {
 
     private View view;

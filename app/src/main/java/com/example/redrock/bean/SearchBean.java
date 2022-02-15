@@ -2,6 +2,13 @@ package com.example.redrock.bean;
 
 import java.util.List;
 
+/**
+ *   description:搜索歌曲的bean
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class SearchBean {
 
     private ResultDTO result;
@@ -463,16 +470,16 @@ public class SearchBean {
             }
 
             public static class HDTO {
-                private int br;
+                private String br;
                 private int fid;
-                private int size;
-                private int vd;
+                private String size;
+                private String vd;
 
-                public int getBr() {
+                public String getBr() {
                     return br;
                 }
 
-                public void setBr(int br) {
+                public void setBr(String br) {
                     this.br = br;
                 }
 
@@ -484,34 +491,34 @@ public class SearchBean {
                     this.fid = fid;
                 }
 
-                public int getSize() {
+                public String getSize() {
                     return size;
                 }
 
-                public void setSize(int size) {
+                public void setSize(String size) {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }
 
             public static class MDTO {
-                private int br;
+                private String br;
                 private int fid;
-                private int size;
-                private int vd;
+                private String size;
+                private String vd;
 
-                public int getBr() {
+                public String getBr() {
                     return br;
                 }
 
-                public void setBr(int br) {
+                public void setBr(String br) {
                     this.br = br;
                 }
 
@@ -523,34 +530,34 @@ public class SearchBean {
                     this.fid = fid;
                 }
 
-                public int getSize() {
+                public String getSize() {
                     return size;
                 }
 
-                public void setSize(int size) {
+                public void setSize(String size) {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }
 
             public static class LDTO {
-                private int br;
+                private String br;
                 private int fid;
-                private int size;
-                private int vd;
+                private String size;
+                private String vd;
 
-                public int getBr() {
+                public String getBr() {
                     return br;
                 }
 
-                public void setBr(int br) {
+                public void setBr(String br) {
                     this.br = br;
                 }
 
@@ -562,19 +569,19 @@ public class SearchBean {
                     this.fid = fid;
                 }
 
-                public int getSize() {
+                public String getSize() {
                     return size;
                 }
 
-                public void setSize(int size) {
+                public void setSize(String size) {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }

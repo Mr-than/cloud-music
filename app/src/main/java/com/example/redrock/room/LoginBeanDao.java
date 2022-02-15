@@ -11,6 +11,13 @@ import com.example.redrock.bean.LoginBean;
 
 import java.util.List;
 
+/**
+ *   description:登录数据的Dao
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 @Dao
 public interface LoginBeanDao {
 

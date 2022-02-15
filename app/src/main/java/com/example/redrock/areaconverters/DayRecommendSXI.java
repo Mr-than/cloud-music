@@ -8,6 +8,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+/**
+ *   description:日推歌曲的转换器
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class DayRecommendSXI {
     @TypeConverter
     public static List<DayRecommendSongsBean.DataDTO.DailySongsDTO.PrivilegeDTO.ChargeInfoListDTO> revert(String data) {

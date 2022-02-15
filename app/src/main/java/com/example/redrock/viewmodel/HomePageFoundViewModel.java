@@ -26,6 +26,13 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:“发现”页面的ViewModel
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class HomePageFoundViewModel extends ViewModel {
 
     private MutableLiveData<List<DayRecommendBean>> _recommendPlaylist=new MutableLiveData<>();

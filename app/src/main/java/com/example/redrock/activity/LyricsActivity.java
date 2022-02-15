@@ -35,30 +35,40 @@ import com.example.redrock.viewmodel.LyricsActivityViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:显示歌词的活动
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/10
+ */
 
 public class LyricsActivity extends AppCompatActivity {
 
+    //seekBar左右两边的时间显示，以及音乐名称
     private TextView progress1,progress2,progress3,progress4,musicName;
-
+    //播放状态、音乐头像、评论图片
     private ImageView playPause,musicPhoto,inCommend;
 
     private SeekBar seekBar;
 
     private Toolbar toolbar;
-
+    //歌词的viewModel
     private LyricsActivityViewModel lyricsActivityViewModel;
+    //主界面引用
     private HomePageActivity homePageActivity;
+
     private HomePageViewModel homePageViewModel;
 
     private RecyclerView recyclerView;
+    //重写的Rv的LayoutManager，在包 model里
     private CenterLayoutManager manager;
-
+    //便于外界获取引用
     public static LyricsActivity LYRICS_ACTIVITY;
 
     private PlayMusicService.PlaySongBinder mBinder;
 
     private List<LyricsBean> lyricsList;
-
+    //检测是否触摸了歌词，如果触摸，将歌词停止滑动，并将白色歌词改为原来的颜色
     private boolean touch=true;
     private int firstItemPosition;
 

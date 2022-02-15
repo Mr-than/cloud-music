@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:layout_width="20dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:id="@+id/playlist_song_item_nu"
         android:textSize="15dp"

@@ -15,6 +15,13 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:歌词页面的ViewModel
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class LyricsActivityViewModel extends ViewModel {
 
     private MutableLiveData<List<LyricsBean>> _lyrics=new MutableLiveData<>();

@@ -9,6 +9,13 @@ import com.example.redrock.bean.WonderfulRecommendPlaylistBean;
 
 import java.util.List;
 
+/**
+ *   description:精彩歌单的Dao
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 @Dao
 public interface WonderfulPlaylistDao {
 

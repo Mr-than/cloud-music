@@ -25,6 +25,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+/**
+ *   description:播放音乐的服务
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class PlayMusicService extends Service {
 
     private MediaPlayer songPlayer;

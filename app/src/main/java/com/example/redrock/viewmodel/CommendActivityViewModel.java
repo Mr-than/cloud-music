@@ -21,6 +21,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:评论活动的ViewModel
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/14
+ */
+
 public class CommendActivityViewModel extends ViewModel {
 
     private MutableLiveData<List<CommendBean>> _commendContent=new MutableLiveData<>();

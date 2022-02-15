@@ -8,7 +8,14 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-public class PlaylistSB3 {
+/**
+ *   description:登录信息转换器
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
+public class LoginB3 {
     @TypeConverter
     public static List<LoginBean.BindingsDTO> revert(String data){
         Gson gson=new Gson();

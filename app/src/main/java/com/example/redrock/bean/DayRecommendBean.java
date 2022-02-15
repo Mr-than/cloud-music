@@ -1,5 +1,12 @@
 package com.example.redrock.bean;
 
+/**
+ *   description:给adapter的日推bean
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class DayRecommendBean {
     private String photo;
     private String name;

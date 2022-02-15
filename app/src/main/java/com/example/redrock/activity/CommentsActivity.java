@@ -28,16 +28,32 @@ import com.example.redrock.viewmodel.CommendActivityViewModel;
 
 import java.util.List;
 
+/**
+ *   description:显示歌曲热评和发送评论的活动
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/14
+ */
+
 public class CommentsActivity extends BaseActivity {
 
+    //歌曲的头像
     private ImageView photo;
+    //歌曲的名字，后者是发送评论的文字
     private TextView name,sendCommend;
+    //编辑评论的edit
     private EditText editCommend;
+    //评论的RV
     private RecyclerView commend;
+    //这个活动的ViewModel
     private CommendActivityViewModel commendActivityViewModel;
+    //这个活动本身，用于外界获取这个活动的引用
     public static CommentsActivity COMMEND_ACTIVITY;
+    //歌曲的id
     private String songId;
+    //评论资源的评论类型
     public String t;
+    //回复评论的id
     public String commendId;
 
     @Override
@@ -46,7 +62,7 @@ public class CommentsActivity extends BaseActivity {
         setContentView(R.layout.activity_comments);
         initView();
 
-
+        //用于获取评论然后用下面的livedata观察发给RV
         commendActivityViewModel.commendContent.observe(this, new Observer<List<CommendBean>>() {
             @Override
             public void onChanged(List<CommendBean> commendBeans) {
@@ -58,28 +74,28 @@ public class CommentsActivity extends BaseActivity {
 
             }
         });
-
+        //歌曲的头像观察者，用于设置右上角图片
         commendActivityViewModel.songPhoto.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 Glide.with(CommentsActivity.this).load(s).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(photo);
             }
         });
-
+        //歌曲名字观察者，用于设置右上角歌曲名字
         commendActivityViewModel.songName.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 name.setText(s);
             }
         });
-
+        //歌曲id观察者，用于评论（评论需要资源id）
         commendActivityViewModel.songId.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 songId=s;
             }
         });
-
+        //请求返回码观察者（用于发送评论是否成功判断）
         commendActivityViewModel.code.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -97,7 +113,7 @@ public class CommentsActivity extends BaseActivity {
             }
         });
     }
-
+    //初始化控件和变量的方法
     private void initView() {
         COMMEND_ACTIVITY=this;
         commendId="";
@@ -106,6 +122,7 @@ public class CommentsActivity extends BaseActivity {
         sendCommend=findViewById(R.id.send_commend_te);
         editCommend=findViewById(R.id.send_commend_edit);
 
+        //这里给text监听是为了控制“发送”两个字的颜色
         editCommend.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -124,6 +141,7 @@ public class CommentsActivity extends BaseActivity {
                     }
             }
         });
+        //按下发送键监听
         sendCommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

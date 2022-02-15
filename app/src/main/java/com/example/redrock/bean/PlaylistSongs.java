@@ -1,5 +1,12 @@
 package com.example.redrock.bean;
 
+/**
+ *   description:给adapter用的歌单bean
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class PlaylistSongs {
     private int num;
     private String name;

@@ -5,6 +5,13 @@ import com.example.redrock.bean.CreatePlaylistBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ *   description:私人歌单的转换器，用于数据库存储
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class CreatePB3 {
     @TypeConverter
     public static CreatePlaylistBean.PlaylistDTO.CreatorDTO revert(String data){

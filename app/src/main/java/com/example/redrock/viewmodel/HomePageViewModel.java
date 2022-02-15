@@ -20,6 +20,13 @@ import com.example.redrock.service.PlayMusicService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:主页面的ViewModel
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/5
+ */
+
 public class HomePageViewModel extends ViewModel {
 
     private MutableLiveData<String> _songPhoto=new MutableLiveData<>();

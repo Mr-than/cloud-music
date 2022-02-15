@@ -33,6 +33,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
 
+/**
+ *   description:显示歌单歌曲列表的活动
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/7
+ */
+
+
 public class PlaylistSongActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private Toolbar toolbar;

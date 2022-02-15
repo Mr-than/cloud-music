@@ -7,6 +7,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
+/**
+ *   description:日推歌单的转换器
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class DayRecommendPB1 {
 
     @TypeConverter

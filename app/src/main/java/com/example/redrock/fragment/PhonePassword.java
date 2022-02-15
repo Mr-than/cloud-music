@@ -31,6 +31,13 @@ import com.example.redrock.room.LoginBeanDao;
 import com.example.redrock.viewmodel.HomePageViewModel;
 import com.example.redrock.viewmodel.MainActivityViewModel;
 
+/**
+ *   description:手机号登录输入密码页面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class PhonePassword extends Fragment {
 
     private Button login;

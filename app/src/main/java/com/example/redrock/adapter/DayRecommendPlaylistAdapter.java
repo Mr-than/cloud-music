@@ -22,6 +22,13 @@ import com.example.redrock.viewmodel.PlaylistSongViewModel;
 
 import java.util.List;
 
+/**
+ *   description:日推歌单
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/7
+ */
+
 public class DayRecommendPlaylistAdapter extends RecyclerView.Adapter<DayRecommendPlaylistAdapter.PlaylistViewHolder> {
 
     private List<DayRecommendBean> list;

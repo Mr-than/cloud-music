@@ -7,6 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ *   description:这是用来控制歌词滑动的类，重写了smoothScrollToPosition用于控制滑动的速度，calculateDtToFit方法用于控制滑动的位置
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class CenterLayoutManager extends LinearLayoutManager {
 
     public CenterLayoutManager(Context context) {

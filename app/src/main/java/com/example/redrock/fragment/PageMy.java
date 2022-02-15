@@ -30,6 +30,13 @@ import com.example.redrock.viewmodel.HomePageMyViewModel;
 
 import java.util.List;
 
+/**
+ *   description:“我的”页面
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 public class PageMy extends Fragment {
 
     private View view;

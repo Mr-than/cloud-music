@@ -6,6 +6,13 @@ import androidx.room.PrimaryKey;
 
 import java.util.List;
 
+/**
+ *   description:精彩歌单
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
+
 @Entity
 public class WonderfulRecommendPlaylistBean {
 

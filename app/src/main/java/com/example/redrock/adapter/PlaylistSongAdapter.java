@@ -26,6 +26,13 @@ import com.example.redrock.viewmodel.LyricsActivityViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *   description:歌单列表的adapter
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/7
+ */
+
 public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapter.SongViewHolder> {
 
     private List<PlaylistSongs> list;

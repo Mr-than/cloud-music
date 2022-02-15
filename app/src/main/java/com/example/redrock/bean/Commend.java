@@ -2,8 +2,14 @@ package com.example.redrock.bean;
 
 import java.util.List;
 
-public class Commend {
+/**
+ *   description:评论的bean
+ *   author:冉跃
+ *   email:2058109198@qq.com
+ *   date:2022/2/15
+ */
 
+public class Commend {
 
     private boolean isMusician;
     private int cnum;
