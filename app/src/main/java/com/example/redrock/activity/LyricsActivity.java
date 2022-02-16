@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.redrock.R;
 import com.example.redrock.adapter.LyricsAdapter;
+import com.example.redrock.base.BaseActivity;
 import com.example.redrock.bean.LyricsBean;
 import com.example.redrock.model.CenterLayoutManager;
 import com.example.redrock.service.PlayMusicService;
@@ -42,7 +44,7 @@ import java.util.List;
  *   date:2022/2/10
  */
 
-public class LyricsActivity extends AppCompatActivity {
+public class LyricsActivity extends BaseActivity {
 
     //seekBar左右两边的时间显示，以及音乐名称
     private TextView progress1,progress2,progress3,progress4,musicName;
@@ -202,6 +204,15 @@ public class LyricsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(LyricsActivity.this,HomePageActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        startActivity(intent);
+
+    }
+
     private void intView() {
 
         inCommend=findViewById(R.id.in_commend);
@@ -304,13 +315,18 @@ public class LyricsActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case android.R.id.home:{
-                finish();
+
+                moveTaskToBack(true);
+
+
             }break;
             default:break;
         }
 
         return true;
     }
+
+
 
 
 
@@ -530,38 +546,38 @@ public class LyricsActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-                LyricsAdapter.ViewHolder holder1=(LyricsAdapter.ViewHolder)recyclerView.findViewHolderForLayoutPosition(position);
-                LyricsAdapter.ViewHolder holder2=(LyricsAdapter.ViewHolder)recyclerView.findViewHolderForLayoutPosition(position-1);
                 firstItemPosition=manager.findFirstCompletelyVisibleItemPosition();
-
-
-
                  if(touch) {
 
                      if(firstItemPosition-position>3*firstLy||firstItemPosition-position<-3*firstLy){
                          recyclerView.scrollToPosition(position);
-                         recyclerView.scrollBy(0,-50);
+                         recyclerView.smoothScrollToPosition(position);
+
+                         new Thread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 try {
+                                     Thread.sleep(500);
+                                 } catch (InterruptedException e) {
+                                     e.printStackTrace();
+                                 }
+
+                                 runOnUiThread(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         setColor(position);
+                                     }
+                                 });
+
+                             }
+                         }).start();
+
+
                      }else {
                          recyclerView.smoothScrollToPosition(position);
                      }
-                     if (holder1 != null) {
-                         if (holder1.lyrics1.getText().toString().length() <= 0) {
-                             holder1.lyrics1.setTextColor(Color.parseColor("#878787"));
-                             holder1.lyrics2.setTextColor(Color.parseColor("#707070"));
-                         } else {
-                             holder1.lyrics1.setTextColor(Color.parseColor("#FFFFFFFF"));
-                             holder1.lyrics2.setTextColor(Color.parseColor("#FFFFFFFF"));
-                         }
-                     }
-                     if (holder2 != null) {
-                         holder2.lyrics1.setTextColor(Color.parseColor("#878787"));
-                         holder2.lyrics2.setTextColor(Color.parseColor("#707070"));
-                     }
+                     setColor(position);
                  }
-
-
             }
         },250);
 
@@ -622,5 +638,29 @@ public class LyricsActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    private void setColor(int position){
+        LyricsAdapter.ViewHolder holder1=(LyricsAdapter.ViewHolder)recyclerView.findViewHolderForLayoutPosition(position);
+        LyricsAdapter.ViewHolder holder2=(LyricsAdapter.ViewHolder)recyclerView.findViewHolderForLayoutPosition(position-1);
+
+
+        if (holder1 != null) {
+            if (holder1.lyrics1.getText().toString().length() <= 0) {
+                holder1.lyrics1.setTextColor(Color.parseColor("#878787"));
+                holder1.lyrics2.setTextColor(Color.parseColor("#707070"));
+            } else {
+                holder1.lyrics1.setTextColor(Color.parseColor("#FFFFFFFF"));
+                holder1.lyrics2.setTextColor(Color.parseColor("#FFFFFFFF"));
+            }
+        }
+        if (holder2 != null) {
+            holder2.lyrics1.setTextColor(Color.parseColor("#878787"));
+            holder2.lyrics2.setTextColor(Color.parseColor("#707070"));
+        }
+    }
+
+
+
+
 
 }

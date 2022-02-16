@@ -230,24 +230,29 @@ public class PlaylistSongViewModel extends ViewModel {
 
     }
 
-    private void makeSearchData(String data){
+    private void makeSearchData(String data) {
 
-        Gson gson=new Gson();
-        SearchBean bean=gson.fromJson(data,new TypeToken<SearchBean>(){}.getType());
+        Gson gson = new Gson();
+        SearchBean bean = gson.fromJson(data, new TypeToken<SearchBean>() {
+        }.getType());
 
-        List<PlaylistSongs> list=new ArrayList<>();
+        List<PlaylistSongs> list = new ArrayList<>();
 
-        if(bean.getResult().getSongs().size()>0){
+        if (bean.getResult() != null) {
+            if (bean.getResult().getSongs().size() > 0) {
 
-            for (int i = 0; i < bean.getResult().getSongs().size(); i++) {
+                for (int i = 0; i < bean.getResult().getSongs().size(); i++) {
                     list.add(new PlaylistSongs(i + 1, bean.getResult().getSongs().get(i).getName(), bean.getResult().getSongs().get(i).getAl().getName(),
                             bean.getResult().getSongs().get(i).getAr().get(0).getName(), bean.getResult().getSongs().get(i).getAl().getPicUrl(), null,
                             bean.getResult().getSongs().get(i).getAl().getName(), bean.getResult().getSongs().get(i).getId()));
 
+                }
+
+                _searchSong.postValue(list);
+
             }
-
-            _searchSong.postValue(list);
-
+        }else {
+            _msg.postValue("没搜索到歌曲");
         }
     }
 

@@ -23,6 +23,7 @@
             android:name=".activity.CommentsActivity"
             android:exported="false" />
         <activity
+            android:launchMode="singleInstance"
             android:name=".activity.LyricsActivity"
             android:exported="false" />
         <activity

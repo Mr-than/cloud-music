@@ -368,7 +368,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             case R.id.home_page_song_lyrics:{
 
                 if(!songName.getText().toString().equals("")){
-                    Intent intent=new Intent(this,LyricsActivity.class);
+                    Intent intent = new Intent(this,LyricsActivity.class);
                     startActivity(intent);
 
                     //延时，为了确保LyricsActivity.LYRICS_ACTIVITY不为空
