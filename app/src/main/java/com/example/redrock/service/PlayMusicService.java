@@ -121,11 +121,17 @@ public class PlayMusicService extends Service {
 
                     createNotificationChannel();
 
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.setAction(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.setComponent(new ComponentName(PlayMusicService.this, HomePageActivity.class));
+
+
+
+
+                    Intent intent = new Intent(PlayMusicService.this,HomePageActivity.class);
+
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+
+
+
 
                     PendingIntent pi=PendingIntent.getActivity(PlayMusicService.this,0,intent,PendingIntent.FLAG_MUTABLE);
                     NotificationCompat.Builder builder=new NotificationCompat.Builder(PlayMusicService.this,"001")

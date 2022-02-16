@@ -196,7 +196,7 @@ public class PlaylistSongViewModel extends ViewModel {
                         .startRequest(new InternetTool.Back() {
                             @Override
                             public void onError() {
-                                _msg.postValue("未登录或歌单歌曲为零");
+                               
                             }
 
                             @Override

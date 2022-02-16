@@ -510,7 +510,7 @@ public class DayRecommendSongsBean {
                 private int br;
                 private int fid;
                 private int size;
-                private int vd;
+                private String vd;
 
                 public int getBr() {
                     return br;
@@ -536,11 +536,11 @@ public class DayRecommendSongsBean {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }
@@ -549,7 +549,7 @@ public class DayRecommendSongsBean {
                 private int br;
                 private int fid;
                 private int size;
-                private int vd;
+                private String vd;
 
                 public int getBr() {
                     return br;
@@ -575,11 +575,11 @@ public class DayRecommendSongsBean {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }
@@ -588,7 +588,7 @@ public class DayRecommendSongsBean {
                 private int br;
                 private int fid;
                 private int size;
-                private int vd;
+                private String vd;
 
                 public int getBr() {
                     return br;
@@ -614,11 +614,11 @@ public class DayRecommendSongsBean {
                     this.size = size;
                 }
 
-                public int getVd() {
+                public String getVd() {
                     return vd;
                 }
 
-                public void setVd(int vd) {
+                public void setVd(String vd) {
                     this.vd = vd;
                 }
             }
